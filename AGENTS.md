@@ -10,6 +10,17 @@
 - Nao introduza backend real, auth real, billing real ou integracoes sensiveis sem prompt especifico.
 - Nunca exponha segredos em logs, docs, screenshots, commits ou mensagens.
 
+## Arquitetura
+
+- Use pnpm workspaces com apps em `apps/*` e packages em `packages/*`.
+- Mantenha `apps/starter` como app base pequeno e executavel.
+- Mantenha `apps/demo` como vitrine tecnica das PRDs, sem dados reais.
+- Mantenha `packages/ui` focado em primitives e componentes visuais reutilizaveis.
+- Mantenha `packages/app-kit` focado em shell, estados, hooks, guards visuais e padroes de app.
+- Mantenha `packages/config` para metadados e convencoes compartilhadas.
+- Nao crie dependencias circulares entre packages.
+- Antes de adicionar abstracoes, confirme que elas reduzem repeticao real ou seguem uma PRD.
+
 ## Desenvolvimento
 
 - Use TDD real quando alterar comportamento React/DOM: teste RED, implementacao minima, GREEN e suite relevante.
@@ -18,6 +29,16 @@
 - Mantenha `packages/ui` sem regra de negocio.
 - Mantenha `packages/app-kit` generico, com shell, guards visuais, hooks, states e templates reutilizaveis.
 - Mantenha apps de exemplo com fixtures genericas.
+- Use React 18, Vite, TypeScript, Tailwind CSS e React Router conforme a fundacao atual.
+- Evite landing pages: a primeira tela deve ser uma experiencia de aplicacao.
+
+## Scripts esperados
+
+- `pnpm lint`
+- `pnpm typecheck`
+- `pnpm test`
+- `pnpm build`
+- `pnpm check`
 
 ## Validacao
 
