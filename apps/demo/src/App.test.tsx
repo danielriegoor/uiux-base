@@ -5,6 +5,8 @@ import { App } from "./App";
 
 describe("demo app", () => {
   it("mostra a fundacao e navega para pacotes do workspace", async () => {
+    window.history.pushState({}, "", "/");
+
     render(<App />);
 
     expect(
