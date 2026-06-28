@@ -47,8 +47,16 @@ pnpm --filter @uiux-base/ui build
 
 - Apps usam Tailwind CSS via Vite.
 - Estilos globais ficam em `src/index.css` de cada app.
+- Apps que consomem o pacote UI devem importar `@uiux-base/ui/styles/globals.css` uma vez no CSS principal.
 - Packages podem exportar componentes com classes Tailwind, mas nao devem depender de tema de dominio.
 - Evite paletas acopladas a um produto especifico; use tokens neutros ate a PRD de design system definir a base visual.
+
+## Package UI
+
+- `packages/ui` e o ponto central para primitives, estados compartilhados, composicoes simples de formulario e componentes basicos de dados.
+- Exports publicos devem sair de `@uiux-base/ui`; evite imports profundos a partir dos apps.
+- Estados dinamicos devem preservar semantica acessivel: loading com `role="status"` e erro com `role="alert"`.
+- Dialog, dropdown, select, tabs e tooltip devem preservar comportamento de teclado oferecido pelo Radix UI.
 
 ## Neutralidade
 

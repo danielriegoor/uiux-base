@@ -11,7 +11,7 @@ export default defineConfig({
       fileName: "index"
     },
     rolldownOptions: {
-      external: ["react", "react/jsx-runtime"]
+      external: ["react", "react-dom", "react/jsx-runtime"]
     }
   },
   test: {
