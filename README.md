@@ -8,14 +8,13 @@ O `uiux-base` vai servir como monorepo pessoal para projetos front-end data-dens
 
 ## Status atual
 
-Este commit inicial importa apenas o planejamento do template:
+A fundacao do monorepo esta configurada:
 
-- PRDs em `docs/prds/`.
-- Prompts copiaveis em `docs/prompts/`.
-- Estrutura alvo documentada em `docs/estrutura-template.md`.
-- Regras iniciais para agentes em `AGENTS.md`.
-
-Ainda nao ha apps, packages, dependencias, scripts, CI ou build configurados. Isso entra nas proximas fatias de implementacao.
+- Workspaces pnpm em `apps/*` e `packages/*`.
+- Apps Vite executaveis em `apps/starter` e `apps/demo`.
+- Packages internos buildaveis em `packages/ui`, `packages/app-kit` e `packages/config`.
+- React 18, Vite, TypeScript, Tailwind CSS, React Router, Vitest, jsdom, Testing Library, user-event, jest-dom e ESLint.
+- CI em GitHub Actions com install, lint, test e build.
 
 ## Principios
 
@@ -24,6 +23,39 @@ Ainda nao ha apps, packages, dependencias, scripts, CI ou build configurados. Is
 - O template deve permanecer neutro: sem Tatico, DinastIA, dados reais, segredos, endpoints reais, Supabase, Asaas, billing real ou auth real.
 - Mudancas de comportamento React/DOM devem seguir TDD real.
 - Antes de finalizar fatias implementadas, validar com lint, testes e build quando esses scripts existirem.
+
+## Comandos
+
+```bash
+pnpm install
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+pnpm check
+```
+
+Para desenvolvimento local:
+
+```bash
+pnpm --filter starter dev
+pnpm --filter demo dev
+```
+
+## Estrutura
+
+```text
+apps/
+  starter/     App base neutro para iniciar produtos.
+  demo/        App para demonstrar pacotes e futuras PRDs.
+packages/
+  ui/          Pacote UI neutro, sem regra de negocio.
+  app-kit/     Utilitarios de app e arquitetura reutilizavel.
+  config/      Metadados e convencoes compartilhadas.
+docs/
+  prds/        PRDs do template.
+  prompts/     Prompts copiaveis para proximas fatias.
+```
 
 ## Planejamento
 

@@ -1,0 +1,21 @@
+{
+  "name": "starter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "lint": "eslint . --max-warnings=0",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit --pretty false",
+    "build": "pnpm typecheck && vite build"
+  },
+  "dependencies": {
+    "@uiux-base/app-kit": "workspace:*",
+    "@uiux-base/config": "workspace:*",
+    "@uiux-base/ui": "workspace:*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.18.0"
+  }
+}
