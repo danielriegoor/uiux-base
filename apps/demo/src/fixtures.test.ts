@@ -25,6 +25,7 @@ describe("demo fixtures", () => {
     expect(demoMetrics).toHaveLength(5);
     expect(demoEvents).toHaveLength(5);
     expect(demoRecords).toHaveLength(8);
-    expect(allFixtureText).not.toMatch(/tatico/i);
+    expect(allFixtureText).not.toMatch(/https?:\/\//i);
+    expect(allFixtureText).not.toMatch(/secret|token|password/i);
   });
 });

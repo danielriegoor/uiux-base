@@ -6,13 +6,18 @@
 
 ## Decisao
 
-Criar um repo pessoal e privado para servir como template reutilizavel de apps React/Vite com UX consistente, componentes acessiveis, arquitetura de features e padroes de validacao.
+Criar um repo pessoal e privado para servir como template reutilizavel de apps
+React/Vite com UX consistente, componentes acessiveis, arquitetura de features
+e padroes de validacao.
 
-O Tatico pode ser usado como referencia read-only, mas o `uiux-base` deve nascer neutro e independente.
+Referencias externas podem orientar padroes em modo read-only, mas o `uiux-base`
+deve nascer neutro e independente.
 
 ## Objetivo
 
-Reduzir o custo de iniciar novos projetos front-end SaaS, principalmente dashboards, apps operacionais e interfaces data-dense. O template deve entregar uma base pronta para:
+Reduzir o custo de iniciar novos projetos front-end SaaS, principalmente
+dashboards, apps operacionais e interfaces data-dense. O template deve entregar
+uma base pronta para:
 
 - layout de dashboard;
 - design system;
@@ -26,7 +31,7 @@ Reduzir o custo de iniciar novos projetos front-end SaaS, principalmente dashboa
 
 ## Contexto
 
-As PRDs UI 001-020 do Tatico consolidaram varios padroes reutilizaveis:
+Experiencias anteriores consolidaram varios padroes reutilizaveis:
 
 - fundacao de design system;
 - primitives Radix/shadcn;
@@ -40,12 +45,13 @@ As PRDs UI 001-020 do Tatico consolidaram varios padroes reutilizaveis:
 - CSS ownership;
 - matriz QA de UX antes de polish visual.
 
-O `uiux-base` deve extrair esses aprendizados como padroes genericos, sem copiar regras de negocio do Tatico.
+O `uiux-base` deve extrair esses aprendizados como padroes genericos, sem copiar
+regras de negocio de qualquer produto.
 
 ## Publico alvo
 
 - Projetos pessoais futuros.
-- Protótipos SaaS.
+- Prototipos SaaS.
 - Dashboards internos.
 - Apps B2B data-dense.
 - Bases que possam ser usadas por agentes Codex em novos repos.
@@ -63,9 +69,9 @@ O `uiux-base` deve extrair esses aprendizados como padroes genericos, sem copiar
 
 ## Fora do escopo
 
-- Implementar dominio Tatico.
-- Copiar nomes, textos, dados ou regras de negocio do Tatico.
-- Implementar Supabase, Asaas, billing real ou auth real.
+- Implementar dominio de produto especifico.
+- Copiar nomes, textos, dados ou regras de negocio de outro produto.
+- Implementar provedores reais, billing real ou auth real.
 - Criar backend real.
 - Publicar packages no npm.
 - Tornar o repo publico.
@@ -84,7 +90,7 @@ O `uiux-base` deve extrair esses aprendizados como padroes genericos, sem copiar
 
 - Existe um repo privado `danielriegoor/uiux-base`.
 - O repo contem PRDs e docs de uso.
-- O template nao contem acoplamento com Tatico ou DinastIA.
+- O template nao contem acoplamento com produtos internos.
 - O starter app roda localmente.
 - Demo app exibe os componentes principais.
 - CI roda lint, testes e build.

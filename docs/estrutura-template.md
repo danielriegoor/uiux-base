@@ -129,7 +129,7 @@ Cada app/package deve ter scripts locais equivalentes quando fizer sentido.
 - `apps/starter` demonstra um produto generico, pronto para copiar.
 - `apps/demo` documenta e exercita componentes e padroes.
 - O template nao deve conter backend real.
-- O template nao deve chamar Supabase, Asaas, Stripe, GitHub ou qualquer API sensivel.
+- O template nao deve chamar provedores reais, repositorios externos ou qualquer API sensivel.
 - Services REST devem ser exemplos leves e substituiveis.
 - Nao introduzir repository pattern por padrao.
 

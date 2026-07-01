@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   Button,
   Checkbox,
@@ -24,6 +24,44 @@ import {
 } from "../../index";
 
 describe("primitives interativos", () => {
+  it("permite usar Button como filho de triggers Radix sem warnings de ref", () => {
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
+
+    try {
+      render(
+        <TooltipProvider delayDuration={0}>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button>Abrir detalhes</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogTitle>Detalhes do registro</DialogTitle>
+              <DialogDescription>Revise as informacoes antes de continuar.</DialogDescription>
+            </DialogContent>
+          </Dialog>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">Acoes</Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>Arquivar</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button aria-label="Ajuda">?</Button>
+            </TooltipTrigger>
+            <TooltipContent>Explique este campo</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      );
+
+      expect(consoleError).not.toHaveBeenCalled();
+    } finally {
+      consoleError.mockRestore();
+    }
+  });
+
   it("alterna Checkbox por clique e teclado", async () => {
     const user = userEvent.setup();
 

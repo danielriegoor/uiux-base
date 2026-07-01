@@ -62,7 +62,7 @@ Usar fixtures genericas:
 - metricas ficticias;
 - eventos ficticios.
 
-Nao usar dados, nomes, exemplos ou regras do Tatico.
+Nao usar dados, nomes, exemplos ou regras de produto especifico.
 
 ## Escopo
 

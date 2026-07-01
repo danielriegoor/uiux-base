@@ -5,11 +5,13 @@
 
 ## Decisao
 
-Antes de marcar o repo como GitHub Template, criar uma matriz de QA e documentacao suficiente para reutilizacao por humanos e agentes.
+Antes de marcar o repo como GitHub Template, criar uma matriz de QA e
+documentacao suficiente para reutilizacao por humanos e agentes.
 
 ## Objetivo
 
-Garantir que o template esta pronto para ser usado em projetos futuros sem depender da memoria da sessao original.
+Garantir que o template esta pronto para ser usado em projetos futuros sem
+depender da memoria da sessao original.
 
 ## Documentos obrigatorios
 
@@ -78,7 +80,7 @@ Checagens:
 - `docs/conventions.md` explica limites entre packages e apps.
 - `docs/qa-matrix.md` registra rotas, estados e viewports.
 - CI esta verde.
-- Nao ha referencias a Tatico, DinastIA, Supabase real, Asaas real ou dados sensiveis.
+- Nao ha referencias a produtos privados, provedores reais ou dados sensiveis.
 - Repo pode ser marcado como "Template repository".
 
 ## Validacoes esperadas
@@ -87,15 +89,5 @@ Checagens:
 - `pnpm test`
 - `pnpm build`
 - Smoke visual manual do starter e demo.
-- Busca textual por nomes proibidos ou acoplamentos:
-
-```text
-Tatico
-DinastIA
-Asaas
-Supabase
-benchmarking
-construcao
-obra
-orcamento
-```
+- Busca textual por nomes privados, provedores reais ou termos de dominio externo
+  definidos no prompt da sessao.

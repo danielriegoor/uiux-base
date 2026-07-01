@@ -25,6 +25,7 @@ describe("starter fixtures", () => {
     expect(dashboardMetrics).toHaveLength(4);
     expect(eventFixtures).toHaveLength(4);
     expect(recordFixtures).toHaveLength(6);
-    expect(allFixtureText).not.toMatch(/tatico/i);
+    expect(allFixtureText).not.toMatch(/https?:\/\//i);
+    expect(allFixtureText).not.toMatch(/secret|token|password/i);
   });
 });
