@@ -4,55 +4,68 @@ import { describe, expect, it } from "vitest";
 import { App } from "./App";
 
 describe("starter app", () => {
-  it("abre como experiencia de app com shell e navega para status", async () => {
+  it("abre como experiencia de app com shell e rotas de dashboard", async () => {
+    window.history.pushState({}, "", "/dashboard");
+
     render(<App />);
 
     expect(
-      screen.getByRole("heading", { name: "Starter operacional" })
+      screen.getByRole("heading", { name: "Dashboard" })
     ).toBeInTheDocument();
     expect(
       screen.getByRole("navigation", { name: "Navegacao principal" })
     ).toBeInTheDocument();
-    expect(screen.getByRole("main")).toHaveTextContent("Fila de trabalho");
-    expect(screen.getByRole("status")).toHaveTextContent("Workspace");
+    expect(screen.getByRole("main")).toHaveTextContent("Indicadores");
+    expect(screen.getByRole("status", { name: "Status do app" })).toHaveTextContent(
+      "Workspace"
+    );
 
-    await userEvent.click(screen.getByRole("link", { name: "Status" }));
+    await userEvent.click(screen.getByRole("link", { name: "Overview" }));
 
     expect(
-      screen.getByRole("heading", { name: "Status da fundacao" })
+      screen.getByRole("heading", { name: "Overview" })
     ).toBeInTheDocument();
   });
 
-  it("exibe exemplos de guards e estados sem criar auth real", async () => {
+  it("navega por records, analytics e settings com dados genericos", async () => {
+    window.history.pushState({}, "", "/dashboard");
+
     render(<App />);
 
-    await userEvent.click(screen.getByRole("link", { name: "Estados" }));
+    await userEvent.click(screen.getByRole("link", { name: "Records" }));
+    expect(screen.getByRole("heading", { name: "Records" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("table", { name: "Registros genericos" })
+    ).toBeInTheDocument();
 
-    expect(screen.getByRole("heading", { name: "Estados do app" })).toBeInTheDocument();
-    expect(screen.getAllByRole("status").map((status) => status.textContent)).toEqual(
-      expect.arrayContaining([expect.stringContaining("Verificando acesso")])
-    );
-    expect(screen.getAllByRole("alert").map((alert) => alert.textContent)).toEqual(
-      expect.arrayContaining([
-        expect.stringContaining("Acesso negado"),
-        expect.stringContaining("Workspace bloqueado")
-      ])
-    );
+    await userEvent.click(screen.getByRole("link", { name: "Analytics" }));
+    expect(screen.getByRole("heading", { name: "Analytics" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", { name: "Serie temporal generica" })
+    ).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("link", { name: "Settings" }));
+    expect(screen.getByRole("heading", { name: "Settings" })).toBeInTheDocument();
+    expect(screen.getByLabelText("Nome do workspace")).toHaveValue("Acme Workspace");
   });
 
-  it("navega para dados genericos com tabela e grafico", async () => {
+  it("exibe estados loading, empty, error e blocked sem auth real", () => {
+    window.history.pushState({}, "", "/dashboard");
+
     render(<App />);
 
-    await userEvent.click(screen.getByRole("link", { name: "Dados" }));
+    expect(screen.getByText("Carregando registros")).toBeInTheDocument();
+    expect(screen.getByText("Nenhum evento encontrado")).toBeInTheDocument();
+    expect(screen.getByText("Falha ao buscar metricas")).toBeInTheDocument();
+    expect(screen.getByText("Workspace bloqueado")).toBeInTheDocument();
+  });
 
-    expect(
-      screen.getByRole("heading", { name: "Dados operacionais" })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("table", { name: "Registros operacionais" })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("img", { name: "Grafico operacional" })
-    ).toBeInTheDocument();
+  it("redireciona a raiz para dashboard sem landing page", () => {
+    window.history.pushState({}, "", "/");
+
+    render(<App />);
+
+    expect(screen.getByRole("heading", { name: "Dashboard" })).toBeInTheDocument();
+    expect(window.location.pathname).toBe("/dashboard");
   });
 });

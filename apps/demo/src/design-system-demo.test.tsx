@@ -7,16 +7,14 @@ describe("demo de design system", () => {
   it("apresenta exemplos do pacote UI e interage com os primitives", async () => {
     const user = userEvent.setup();
 
-    window.history.pushState({}, "", "/");
+    window.history.pushState({}, "", "/components");
 
     render(<App />);
 
-    await user.click(screen.getByRole("link", { name: "Design system" }));
-
     expect(
-      screen.getByRole("heading", { name: "Design system e UI package" })
+      screen.getByRole("heading", { name: "Components" })
     ).toBeInTheDocument();
-    expect(screen.getByText("Receita mensal")).toBeInTheDocument();
+    expect(screen.getByText("Usuarios ativos")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Abrir dialog" })).toBeInTheDocument();
 
     await user.click(screen.getByRole("button", { name: "Abrir dialog" }));
