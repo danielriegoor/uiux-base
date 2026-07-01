@@ -4,7 +4,7 @@ Template privado e neutro para iniciar apps React/Vite com base reutilizavel de 
 
 ## Objetivo
 
-O `uiux-base` vai servir como monorepo pessoal para projetos front-end data-dense, dashboards internos, prototipos SaaS e apps operacionais. A intencao e consolidar padroes de componentes, layout, estados, acessibilidade e validacao sem carregar dominio de nenhum produto especifico.
+O `uiux-base` serve como monorepo pessoal para projetos front-end data-dense, dashboards internos, prototipos SaaS e apps operacionais. A intencao e consolidar padroes de componentes, layout, estados, acessibilidade e validacao sem carregar dominio de nenhum produto especifico.
 
 ## Status atual
 
@@ -20,7 +20,7 @@ A fundacao do monorepo esta configurada:
 
 - Primeira tela dos apps futuros deve ser experiencia de aplicacao, nao landing page.
 - Componentes devem ser acessiveis, responsivos e explicitos em loading, empty, error, success e blocked.
-- O template deve permanecer neutro: sem Tatico, DinastIA, dados reais, segredos, endpoints reais, Supabase, Asaas, billing real ou auth real.
+- O template deve permanecer neutro: sem dados reais, segredos, endpoints privados, provedores reais, billing real ou auth real.
 - Mudancas de comportamento React/DOM devem seguir TDD real.
 - Antes de finalizar fatias implementadas, validar com lint, testes e build quando esses scripts existirem.
 

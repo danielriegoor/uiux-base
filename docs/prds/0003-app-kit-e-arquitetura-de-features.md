@@ -89,9 +89,9 @@ Evitar:
 - Auth real.
 - Billing real.
 - Backend real.
-- Supabase, Asaas, Stripe ou provedores especificos.
+- Provedores reais ou especificos.
 - Algoritmos de dominio.
-- Migração de codigo do Tatico.
+- Migracao de codigo de produto externo.
 
 ## Criterios de aceite
 

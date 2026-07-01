@@ -5,11 +5,14 @@
 
 ## Decisao
 
-Inicializar o `uiux-base` como monorepo com `pnpm workspaces`, TypeScript, Vite, React, Tailwind, testes e CI desde o primeiro commit.
+Inicializar o `uiux-base` como monorepo com `pnpm workspaces`, TypeScript, Vite,
+React, Tailwind, testes e CI desde o primeiro commit.
 
 ## Objetivo
 
-Criar uma base tecnica pequena, verificavel e pronta para crescer por pacotes. A fundacao deve permitir implementar componentes e apps sem retrabalho de configuracao.
+Criar uma base tecnica pequena, verificavel e pronta para crescer por pacotes. A
+fundacao deve permitir implementar componentes e apps sem retrabalho de
+configuracao.
 
 ## Estrutura inicial
 
@@ -50,7 +53,7 @@ uiux-base/
 ## Escopo
 
 - Criar repo privado no GitHub em `danielriegoor/uiux-base`.
-- Criar checkout local fora do Tatico.
+- Criar checkout local em pasta dedicada.
 - Copiar as PRDs iniciais para `docs/prds`.
 - Copiar prompts para `docs/prompts`.
 - Criar `AGENTS.md` proprio do template.
@@ -66,9 +69,9 @@ O `AGENTS.md` do novo repo deve orientar agentes a:
 - trabalhar em portugues por padrao;
 - usar TDD quando alterar comportamento de UI;
 - preservar arquitetura de packages;
-- nao introduzir dominio Tatico;
+- nao introduzir dominio de produto especifico;
 - nao expor segredos;
-- consultar o Tatico apenas em read-only quando explicitamente necessario;
+- consultar referencias externas apenas em read-only quando explicitamente necessario;
 - validar com lint, testes e build.
 
 ## Fora do escopo
@@ -87,7 +90,7 @@ O `AGENTS.md` do novo repo deve orientar agentes a:
 - `pnpm test` funciona, ainda que com testes minimos.
 - `pnpm build` funciona para apps e packages.
 - CI executa no GitHub.
-- Nenhum arquivo do Tatico foi editado.
+- Nenhum arquivo fora da worktree do template foi editado.
 - Repo remoto esta privado.
 
 ## Validacoes esperadas

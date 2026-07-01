@@ -1,6 +1,7 @@
 # Prompts copiaveis - uiux-base
 
-Use estes prompts em sessoes futuras do Codex para criar e implementar o repo privado `danielriegoor/uiux-base`.
+Use estes prompts em sessoes futuras do Codex para manter o repo privado
+`danielriegoor/uiux-base`.
 
 ## Contexto fixo para qualquer sessao
 
@@ -12,42 +13,43 @@ G:/templates/ui-ux
 
 Regras:
 - Trabalhe em portugues por padrao.
-- Nao edite nenhum arquivo do repo Tatico.
-- Pode consultar o Tatico em modo read-only quando for necessario extrair padroes.
-- Ao consultar o Tatico, use principalmente docs/prds/ux/001-020, ux-qa-matrix.md, prompts-ui-011-019.md, frontend/src/components, frontend/src/features e frontend/src/pages/dashboard apenas para entender padroes.
-- Nao copie dominio Tatico, nomes de produto, dados reais, segredos, endpoints reais, Supabase/Asaas especificos ou regras de benchmarking/construcao civil.
+- Nao edite arquivos fora da worktree atual sem instrucao explicita.
+- Referencias externas so podem ser consultadas em modo read-only quando o prompt pedir.
+- Nao copie dominio, nomes de produto, dados reais, segredos, endpoints privados, provedores reais ou regras de negocio especificas.
 - Crie uma base neutra e reutilizavel.
 - Use TDD real quando alterar comportamento React/DOM.
 - Rode lint, testes e build antes de finalizar cada fatia.
 ```
 
 ## Fluxo Git e Review
+
 ```text
 - Verifique diffs sempre: antes de editar, antes de testar, antes de `git add`, antes de abrir PR e antes de mergear, rode `git status --short`, `git diff --stat` e `git diff` do escopo.
 - Use `gh` CLI para consultar branches, PRs, checks e abrir/atualizar PRs.
 - Confira worktrees locais e no GitHub antes de iniciar: `git worktree list`, status em cada worktree relacionada e PRs/branches remotas da feature.
 - Crie ou atualize as PRs necessarias contra `main`.
-- Use $code-reviewer para revisar a PR/diff; corrija achados, revalide e atualize a PR.
+- Revise a PR/diff; corrija achados, revalide e atualize a PR.
 - Depois de aprovado, faca merge quando o fluxo da sessao permitir, atualize `main` local e limpe worktrees/branches locais/remotas que estiverem integradas com seguranca.
 ```
 
 ## Skills e Subagents
+
 ```text
-- use $superpowers para entender o escopo de cada prompt, suas regras e fluxo.
-- uso de subagents liberado
-- Use $code-reviewer para revisar a PR/diff; corrija achados, revalide e atualize a PR.
+- use skills de planejamento, verificacao e GitHub quando o prompt envolver implementacao, validacao, PR ou merge.
+- uso de subagents liberado quando houver tarefas independentes.
+- revise a PR/diff antes do merge; corrija achados e revalide.
 ```
 
 ## Prompt 00 - Criar repo privado e importar planejamento
 
 ```text
-Crie o repo privado github.com/danielriegoor/uiux-base fora do Tatico.
+Crie o repo privado github.com/danielriegoor/uiux-base fora de qualquer checkout de produto existente.
 
 Use como fonte local:
 G:/templates/ui-ux
 
 Escopo:
-- Criar checkout local do novo repo em uma pasta fora de G:/DinastIA/tatico.
+- Criar checkout local do novo repo em uma pasta dedicada.
 - Confirmar que o remoto sera pessoal e privado: danielriegoor/uiux-base.
 - Copiar as PRDs de G:/templates/ui-ux/prds para docs/prds no novo repo.
 - Copiar G:/templates/ui-ux/prompts/prompts-copiaveis.md para docs/prompts/prompts-copiaveis.md.
@@ -59,7 +61,7 @@ Escopo:
 Fora do escopo:
 - Nao implementar componentes.
 - Nao configurar app completo ainda.
-- Nao editar Tatico.
+- Nao editar repos fora da worktree do template.
 
 Validacoes:
 - gh repo view danielriegoor/uiux-base
@@ -89,8 +91,8 @@ Escopo:
 Fora do escopo:
 - Nao implementar design system completo.
 - Nao implementar DataTable, ChartPanel ou DashboardShell completo.
-- Nao criar backend, auth real, billing real, Supabase ou Asaas.
-- Nao editar Tatico.
+- Nao criar backend, auth real ou billing real.
+- Nao editar repos fora da worktree do template.
 
 Validacoes:
 - pnpm install
@@ -108,13 +110,12 @@ Implemente a PRD 0002 - Design System e UI Package no repo danielriegoor/uiux-ba
 
 Antes de editar:
 - Leia docs/prds/0002-design-system-e-ui-package.md.
-- Consulte o Tatico em read-only somente se precisar comparar padroes de UI primitives e estados.
 
 Escopo:
 - Criar packages/ui com exports organizados.
 - Criar cn, tokens iniciais e globals.
 - Criar Button, Input, Textarea, Select, Checkbox, Dialog, DropdownMenu, Tabs, Tooltip e Skeleton.
-- Criar EmptyState, ErrorState, LoadingState, BlockedState e ToastProvider com Sonner.
+- Criar EmptyState, ErrorState, LoadingState, BlockedState e ToastProvider.
 - Criar FieldGroup, FormSection e SubmitBar.
 - Criar KpiCard e StatusBadge simples.
 - Criar exemplos no apps/demo.
@@ -142,7 +143,6 @@ Implemente a PRD 0003 - App Kit e Arquitetura de Features no repo danielriegoor/
 
 Antes de editar:
 - Leia docs/prds/0003-app-kit-e-arquitetura-de-features.md.
-- Consulte o Tatico em read-only somente se precisar entender padrao de shell, guards ou features.
 
 Escopo:
 - Criar packages/app-kit.
@@ -157,7 +157,7 @@ Fora do escopo:
 - Nao criar auth real.
 - Nao criar backend real.
 - Nao criar repository pattern.
-- Nao copiar regras do Tatico.
+- Nao copiar regras de produto externo.
 
 Validacoes:
 - testes de shell e guards quando viavel.
@@ -174,7 +174,6 @@ Implemente a PRD 0004 - Data Display, Tabelas e Graficos no repo danielriegoor/u
 
 Antes de editar:
 - Leia docs/prds/0004-data-display-tabelas-e-graficos.md.
-- Consulte o Tatico em read-only somente se precisar entender DataTable, ChartPanel, estados ou matriz QA.
 
 Escopo:
 - Criar DataTable com TanStack Table.
@@ -210,7 +209,7 @@ Antes de editar:
 Escopo:
 - Completar apps/starter com rotas genericas: dashboard, overview, records, analytics e settings.
 - Completar apps/demo com paginas de componentes, feedback, forms, data-table, charts, dashboard-shell e states.
-- Criar fixtures genericas sem dominio Tatico.
+- Criar fixtures genericas sem dominio especifico.
 - Documentar como trocar fixtures por API real.
 - Validar responsividade.
 
@@ -218,7 +217,7 @@ Fora do escopo:
 - Nao criar landing page.
 - Nao criar auth real.
 - Nao criar backend real.
-- Nao usar dados Tatico.
+- Nao usar dados reais.
 
 Validacoes:
 - pnpm --filter starter build
@@ -243,7 +242,7 @@ Escopo:
 - Criar docs/qa-matrix.md.
 - Atualizar docs/prompts/prompts-copiaveis.md se necessario.
 - Validar starter e demo em 375px, 768px, 1024px e desktop.
-- Buscar acoplamentos proibidos: Tatico, DinastIA, Asaas, Supabase, benchmarking, construcao, obra, orcamento.
+- Buscar acoplamentos proibidos definidos no prompt da sessao.
 - Confirmar CI verde.
 - Orientar como marcar o repo como Template repository no GitHub.
 

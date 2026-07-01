@@ -4,9 +4,9 @@
 
 - Trabalhe em portugues por padrao.
 - Preserve o objetivo do repo: base neutra e reutilizavel de UI/UX para apps React/Vite.
-- Nao edite nenhum arquivo do repo Tatico a partir desta worktree.
-- O Tatico pode ser consultado apenas em modo read-only quando for explicitamente necessario extrair padroes.
-- Ao consultar o Tatico, use somente docs e frontend como referencia de arquitetura, design system, componentes, features e QA visual. Nao copie dominio, nomes de produto, dados reais, segredos, endpoints, regras de negocio, Supabase, Asaas ou conteudo especifico.
+- Nao edite arquivos fora desta worktree sem instrucao explicita.
+- Referencias externas so podem ser consultadas em modo read-only quando o prompt pedir.
+- Nao copie dominio, nomes de produto, dados reais, segredos, endpoints, regras de negocio ou conteudo especifico de outro projeto.
 - Nao introduza backend real, auth real, billing real ou integracoes sensiveis sem prompt especifico.
 - Nunca exponha segredos em logs, docs, screenshots, commits ou mensagens.
 
