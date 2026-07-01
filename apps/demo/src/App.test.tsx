@@ -4,39 +4,60 @@ import { describe, expect, it } from "vitest";
 import { App } from "./App";
 
 describe("demo app", () => {
-  it("mostra a fundacao e navega para pacotes do workspace", async () => {
-    window.history.pushState({}, "", "/");
+  it("abre a vitrine em componentes e navega para forms e feedback", async () => {
+    window.history.pushState({}, "", "/components");
 
     render(<App />);
 
     expect(
-      screen.getByRole("heading", { name: "Demo da fundacao" })
+      screen.getByRole("heading", { name: "Components" })
     ).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("link", { name: "Pacotes" }));
+    await userEvent.click(screen.getByRole("link", { name: "Forms" }));
+    expect(screen.getByRole("heading", { name: "Forms" })).toBeInTheDocument();
+    expect(screen.getByLabelText("Titulo do registro")).toBeInTheDocument();
 
-    expect(
-      screen.getByRole("heading", { name: "Pacotes do workspace" })
-    ).toBeInTheDocument();
-    expect(screen.getByText("@uiux-base/ui")).toBeInTheDocument();
-    expect(screen.getByText("@uiux-base/app-kit")).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("link", { name: "Feedback" }));
+    expect(screen.getByRole("heading", { name: "Feedback" })).toBeInTheDocument();
+    expect(screen.getByText("Nenhum resultado generico")).toBeInTheDocument();
   });
 
-  it("navega para exemplos de data display com tabela e grafico", async () => {
+  it("navega para data-table, charts, dashboard-shell e states", async () => {
+    window.history.pushState({}, "", "/components");
+
+    render(<App />);
+
+    await userEvent.click(screen.getByRole("link", { name: "Data table" }));
+    expect(screen.getByRole("heading", { name: "Data table" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("table", { name: "Projetos genericos" })
+    ).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("link", { name: "Charts" }));
+    expect(screen.getByRole("heading", { name: "Charts" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", { name: "Grafico de metricas genericas" })
+    ).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("link", { name: "Dashboard shell" }));
+    expect(
+      screen.getByRole("heading", { name: "Dashboard shell" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "@uiux-base/app-kit" })
+    ).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("link", { name: "States" }));
+    expect(screen.getByRole("heading", { name: "States" })).toBeInTheDocument();
+    expect(screen.getByText("Acesso visual bloqueado")).toBeInTheDocument();
+  });
+
+  it("redireciona a raiz para components sem landing page", () => {
     window.history.pushState({}, "", "/");
 
     render(<App />);
 
-    await userEvent.click(screen.getByRole("link", { name: "Data display" }));
-
-    expect(
-      screen.getByRole("heading", { name: "Data display" })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("table", { name: "Registros de exemplo" })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("img", { name: "Grafico de volume por periodo" })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Components" })).toBeInTheDocument();
+    expect(window.location.pathname).toBe("/components");
   });
 });

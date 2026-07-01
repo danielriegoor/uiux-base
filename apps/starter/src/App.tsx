@@ -2,32 +2,58 @@ import {
   AppStateBoundary,
   DashboardContent,
   DashboardShell,
-  GuardNotice,
-  RequireAccess,
   Sidebar,
   StatusBar,
   Topbar,
-  WorkspaceStateNotice,
   createAppMetadata,
   createRouteNav,
   type NavigationItemInput
 } from "@uiux-base/app-kit";
 import { workspaceConfig } from "@uiux-base/config";
 import {
+  BlockedState,
   Button,
   ChartPanel,
+  Checkbox,
   DataTable,
+  EmptyState,
+  ErrorState,
+  FieldGroup,
+  FormSection,
+  Input,
+  KpiCard,
+  LoadingState,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   StatusBadge,
+  SubmitBar,
+  Textarea,
   UiFoundationMark,
-  type DataTableProps
+  type DataTableProps,
+  type StatusBadgeStatus
 } from "@uiux-base/ui";
 import {
   BrowserRouter,
   Link,
+  Navigate,
   Route,
   Routes,
   useLocation
 } from "react-router-dom";
+import {
+  dashboardMetrics,
+  eventFixtures,
+  organizationFixtures,
+  projectFixtures,
+  recordFixtures,
+  starterSettingsFixture,
+  timeSeriesFixtures,
+  userFixtures,
+  type RecordFixture
+} from "./fixtures";
 
 const appMetadata = createAppMetadata({
   name: "Starter",
@@ -35,219 +61,330 @@ const appMetadata = createAppMetadata({
 });
 
 const navItems: NavigationItemInput[] = [
-  { href: "/", label: "Visao geral" },
-  { href: "/status", label: "Status" },
-  { href: "/estados", label: "Estados" },
-  { href: "/dados", label: "Dados" }
-];
-
-type StarterRecord = {
-  id: string;
-  name: string;
-  priority: "Alta" | "Media" | "Baixa";
-  status: "Pronto" | "Em revisao" | "Pausado";
-  total: number;
-};
-
-const starterRecords: StarterRecord[] = [
   {
-    id: "task-1",
-    name: "Fluxo inicial",
-    priority: "Alta",
-    status: "Pronto",
-    total: 32
+    href: "/dashboard",
+    label: "Dashboard"
   },
   {
-    id: "task-2",
-    name: "Revisao visual",
-    priority: "Media",
-    status: "Em revisao",
-    total: 18
+    href: "/dashboard/overview",
+    label: "Overview"
   },
   {
-    id: "task-3",
-    name: "Checklist QA",
-    priority: "Baixa",
-    status: "Pausado",
-    total: 9
+    href: "/dashboard/records",
+    label: "Records"
   },
   {
-    id: "task-4",
-    name: "Ajustes finais",
-    priority: "Alta",
-    status: "Pronto",
-    total: 41
+    href: "/dashboard/analytics",
+    label: "Analytics"
+  },
+  {
+    href: "/dashboard/settings",
+    label: "Settings"
   }
 ];
 
-const starterColumns: DataTableProps<StarterRecord>["columns"] = [
+const recordColumns: DataTableProps<RecordFixture>["columns"] = [
   {
-    accessorKey: "name",
-    header: "Nome"
+    accessorKey: "title",
+    header: "Registro"
+  },
+  {
+    accessorKey: "owner",
+    header: "Owner"
+  },
+  {
+    accessorKey: "organization",
+    header: "Organizacao"
+  },
+  {
+    accessorKey: "status",
+    cell: ({ row }) => {
+      const status = row.original.status;
+      const tone: StatusBadgeStatus =
+        status === "Ready" ? "success" : status === "Review" ? "warning" : "danger";
+
+      return <StatusBadge status={tone}>{status}</StatusBadge>;
+    },
+    header: "Status"
   },
   {
     accessorKey: "priority",
     header: "Prioridade"
   },
   {
-    accessorKey: "status",
-    cell: ({ row }) => {
-      const status = row.original.status;
-      const badgeStatus =
-        status === "Pronto" ? "success" : status === "Em revisao" ? "warning" : "neutral";
-
-      return <StatusBadge status={badgeStatus}>{status}</StatusBadge>;
-    },
-    header: "Status"
-  },
-  {
     accessorKey: "total",
+    cell: ({ row }) => row.original.total.toLocaleString("en-US"),
     header: "Total"
   }
 ];
 
-const starterChartData = [
-  { period: "S1", created: 24, closed: 18 },
-  { period: "S2", created: 28, closed: 22 },
-  { period: "S3", created: 22, closed: 26 },
-  { period: "S4", created: 31, closed: 29 }
-];
+function DashboardPage() {
+  return (
+    <DashboardContent
+      description="Experiencia inicial de app React/Vite com shell, indicadores, estados e dados ficticios locais."
+      title="Dashboard"
+      actions={
+        <Button asChild variant="outline">
+          <Link to="/dashboard/settings">Ajustar template</Link>
+        </Button>
+      }
+    >
+      <div className="space-y-5">
+        <section aria-labelledby="starter-indicators" className="space-y-3">
+          <div className="flex min-w-0 flex-col gap-1">
+            <h2
+              className="text-sm font-semibold uppercase text-slate-500"
+              id="starter-indicators"
+            >
+              Indicadores
+            </h2>
+            <p className="text-sm leading-6 text-slate-600">
+              Cards numericos reutilizando fixtures locais, sem backend real.
+            </p>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {dashboardMetrics.map((metric) => (
+              <KpiCard
+                helperText={metric.helperText}
+                key={metric.id}
+                label={metric.label}
+                trend={metric.trend}
+                value={metric.value}
+              />
+            ))}
+          </div>
+        </section>
+
+        <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1.15fr)_minmax(300px,0.85fr)]">
+          <ChartPanel
+            ariaLabel="Serie temporal generica"
+            data={timeSeriesFixtures}
+            description="Serie ficticia para validar graficos e responsividade do starter."
+            series={[
+              { key: "created", label: "Criados" },
+              { key: "resolved", label: "Resolvidos" },
+              { key: "reviewed", label: "Revisados" }
+            ]}
+            title="Fluxo semanal"
+            type="area"
+            xAxisKey="period"
+          />
+
+          <section className="min-w-0 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+            <h2 className="text-lg font-semibold text-slate-950">
+              Estados do template
+            </h2>
+            <div className="mt-4 grid gap-3">
+              <LoadingState
+                description="Exemplo visual para dados em transito."
+                title="Carregando registros"
+              />
+              <EmptyState
+                description="Use quando a API real retornar uma lista vazia."
+                title="Nenhum evento encontrado"
+              />
+              <ErrorState
+                description="Mensagem generica com caminho de recuperacao."
+                title="Falha ao buscar metricas"
+              />
+              <BlockedState
+                description="Estado visual, sem auth real ou permissao persistida."
+                title="Workspace bloqueado"
+              />
+            </div>
+          </section>
+        </div>
+      </div>
+    </DashboardContent>
+  );
+}
 
 function OverviewPage() {
   return (
     <DashboardContent
-      description="Base minima para iniciar uma experiencia de aplicacao React/Vite com rotas, workspace packages e validacao automatizada."
-      title="Starter operacional"
+      description="Resumo das colecoes de fixtures que o template fornece para prototipar telas sem dominio especifico."
+      title="Overview"
     >
-      <div className="grid min-w-0 gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(240px,0.65fr)]">
-        <section className="min-w-0 rounded-md border border-slate-200 bg-white p-4 shadow-sm">
-          <p className="text-sm font-medium uppercase text-slate-500">
-            Fila de trabalho
-          </p>
-          <h2 className="mt-2 text-xl font-semibold text-slate-950">
-            Experiencia inicial de app
+      <div className="grid min-w-0 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(260px,0.55fr)]">
+        <section className="min-w-0 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+          <h2 className="text-lg font-semibold text-slate-950">
+            Colecoes genericas
           </h2>
-          <p className="mt-2 text-sm leading-6 text-slate-600">
-            O starter abre direto em uma superficie operacional com navegacao,
-            area principal e estados de sistema visiveis.
-          </p>
-          <div className="mt-4">
-            <UiFoundationMark />
-          </div>
-        </section>
-
-        <section className="min-w-0 rounded-md border border-slate-200 bg-white p-4 shadow-sm">
-          <p className="text-sm font-medium text-slate-500">Pacotes ativos</p>
-          <dl className="mt-3 space-y-3">
-            <div>
-              <dt className="text-xs uppercase text-slate-500">App</dt>
-              <dd className="text-sm font-semibold text-slate-950">
-                {appMetadata.packageName}
+          <dl className="mt-4 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-md border border-slate-200 p-3">
+              <dt className="text-sm text-slate-500">Usuarios</dt>
+              <dd className="text-xl font-semibold text-slate-950">
+                {userFixtures.length}
               </dd>
             </div>
-            <div>
-              <dt className="text-xs uppercase text-slate-500">Workspace</dt>
-              <dd className="text-sm font-semibold text-emerald-700">
-                {workspaceConfig.packages.length} pacotes
+            <div className="rounded-md border border-slate-200 p-3">
+              <dt className="text-sm text-slate-500">Organizacoes</dt>
+              <dd className="text-xl font-semibold text-slate-950">
+                {organizationFixtures.length}
+              </dd>
+            </div>
+            <div className="rounded-md border border-slate-200 p-3">
+              <dt className="text-sm text-slate-500">Projetos</dt>
+              <dd className="text-xl font-semibold text-slate-950">
+                {projectFixtures.length}
+              </dd>
+            </div>
+            <div className="rounded-md border border-slate-200 p-3">
+              <dt className="text-sm text-slate-500">Eventos</dt>
+              <dd className="text-xl font-semibold text-slate-950">
+                {eventFixtures.length}
               </dd>
             </div>
           </dl>
         </section>
+
+        <section className="min-w-0 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+          <h2 className="text-lg font-semibold text-slate-950">Base ativa</h2>
+          <div className="mt-4 space-y-4">
+            <UiFoundationMark />
+            <p className="text-sm leading-6 text-slate-600">
+              Para trocar fixtures por API real, siga{" "}
+              <code className="rounded bg-slate-100 px-1 py-0.5 text-xs">
+                docs/fixtures-para-api-real.md
+              </code>
+              .
+            </p>
+          </div>
+        </section>
       </div>
     </DashboardContent>
   );
 }
 
-function StatusPage() {
+function RecordsPage() {
   return (
     <DashboardContent
-      description="Indicadores neutros do template, sem dependencia de backend real."
-      title="Status da fundacao"
+      description="Tabela generica com busca, sorting, paginacao e acoes por linha."
+      title="Records"
     >
-      <dl className="grid gap-3 sm:grid-cols-2">
-        <div className="rounded-md border border-slate-200 bg-white p-4">
-          <dt className="text-sm text-slate-500">Estado</dt>
-          <dd className="text-lg font-semibold text-emerald-700">
-            {appMetadata.status}
-          </dd>
-        </div>
-        <div className="rounded-md border border-slate-200 bg-white p-4">
-          <dt className="text-sm text-slate-500">Scripts raiz</dt>
-          <dd className="text-lg font-semibold text-slate-950">
-            {workspaceConfig.requiredRootScripts.length}
-          </dd>
-        </div>
-      </dl>
-      <div className="mt-4">
-        <AppStateBoundary accessStatus="allowed" workspaceState="ready">
-          <p className="rounded-md border border-emerald-200 bg-emerald-50 p-4 text-sm font-medium text-emerald-800">
-            Workspace de exemplo pronto para uso local.
-          </p>
-        </AppStateBoundary>
-      </div>
+      <DataTable
+        columns={recordColumns}
+        data={recordFixtures}
+        initialPageSize={5}
+        pageSizeOptions={[5, 10]}
+        renderRowActions={(row) => (
+          <Button size="sm" variant="outline">
+            Abrir {row.original.title}
+          </Button>
+        )}
+        searchPlaceholder="Filtrar registros..."
+        tableDescription="Dados ficticios para validar layout denso, overflow horizontal e controles acessiveis."
+        tableLabel="Registros genericos"
+      />
     </DashboardContent>
   );
 }
 
-function StatesPage() {
+function AnalyticsPage() {
   return (
     <DashboardContent
-      description="Exemplos visuais genericos para loading, acesso negado e workspace bloqueado."
-      title="Estados do app"
+      description="Exemplo de grafico temporal com legenda textual e sumario acessivel."
+      title="Analytics"
     >
-      <div className="grid min-w-0 gap-4 xl:grid-cols-3">
-        <RequireAccess status="loading">
-          <p>Conteudo carregado</p>
-        </RequireAccess>
-        <RequireAccess status="denied">
-          <p>Conteudo protegido</p>
-        </RequireAccess>
-        <WorkspaceStateNotice state="blocked" />
-      </div>
-      <div className="mt-4">
-        <GuardNotice
-          action={<Button variant="outline">Revisar configuracao</Button>}
-          description="Use este bloco quando uma feature depender de setup do workspace."
-          title="Feature aguardando setup"
-          variant="blocked"
-        />
-      </div>
-    </DashboardContent>
-  );
-}
-
-function DataPage() {
-  return (
-    <DashboardContent
-      description="Tabela e grafico genericos para iniciar features com dados densos sem backend real."
-      title="Dados operacionais"
-    >
-      <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1.25fr)_minmax(320px,0.75fr)]">
-        <DataTable
-          columns={starterColumns}
-          data={starterRecords}
-          initialPageSize={4}
-          pageSizeOptions={[4, 8]}
-          renderRowActions={(row) => (
-            <Button size="sm" variant="outline">
-              Ver {row.original.name}
-            </Button>
-          )}
-          tableLabel="Registros operacionais"
-        />
+      <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(280px,0.45fr)]">
         <ChartPanel
-          ariaLabel="Grafico operacional"
-          data={starterChartData}
-          description="Series ficticias para validar responsividade do starter."
+          ariaLabel="Serie temporal generica"
+          data={timeSeriesFixtures}
+          description="Serie local com criados, resolvidos e revisados."
           series={[
             { key: "created", label: "Criados" },
-            { key: "closed", label: "Fechados" }
+            { key: "resolved", label: "Resolvidos" },
+            { key: "reviewed", label: "Revisados" }
           ]}
-          title="Fluxo semanal"
-          type="bar"
+          title="Serie temporal"
+          type="line"
           xAxisKey="period"
         />
+        <section className="min-w-0 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+          <h2 className="text-lg font-semibold text-slate-950">Eventos</h2>
+          <ul className="mt-4 space-y-3">
+            {eventFixtures.map((event) => (
+              <li
+                className="flex min-w-0 items-center justify-between gap-3 rounded-md border border-slate-200 p-3"
+                key={event.id}
+              >
+                <span className="min-w-0">
+                  <span className="block truncate text-sm font-medium text-slate-900">
+                    {event.title}
+                  </span>
+                  <span className="text-xs text-slate-500">
+                    {event.category} - {event.period}
+                  </span>
+                </span>
+                <span className="text-sm font-semibold tabular-nums text-slate-950">
+                  {event.count}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
       </div>
+    </DashboardContent>
+  );
+}
+
+function SettingsPage() {
+  return (
+    <DashboardContent
+      description="Formulario local para demonstrar campos, selects e preferencias sem persistencia externa."
+      title="Settings"
+    >
+      <FormSection
+        description="Substitua estes valores por dados da API real quando o produto estiver conectado."
+        title="Preferencias do workspace"
+      >
+        <div className="grid gap-4 md:grid-cols-2">
+          <FieldGroup
+            hint="Nome exibido no shell e nos metadados do app."
+            htmlFor="workspace-name"
+            label="Nome do workspace"
+          >
+            <Input
+              defaultValue={starterSettingsFixture.workspaceName}
+              id="workspace-name"
+            />
+          </FieldGroup>
+          <FieldGroup htmlFor="default-view" label="Tela inicial">
+            <Select defaultValue="dashboard">
+              <SelectTrigger id="default-view">
+                <SelectValue placeholder="Selecione a tela" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="dashboard">Dashboard</SelectItem>
+                <SelectItem value="overview">Overview</SelectItem>
+                <SelectItem value="records">Records</SelectItem>
+              </SelectContent>
+            </Select>
+          </FieldGroup>
+        </div>
+        <FieldGroup
+          hint="Use dominio .test em fixtures para evitar dados reais."
+          htmlFor="notification-email"
+          label="Email de notificacao"
+        >
+          <Input
+            defaultValue={starterSettingsFixture.notificationEmail}
+            id="notification-email"
+            type="email"
+          />
+        </FieldGroup>
+        <FieldGroup htmlFor="workspace-notes" label="Notas">
+          <Textarea
+            defaultValue="Fixture local usada somente para desenvolvimento visual."
+            id="workspace-notes"
+          />
+        </FieldGroup>
+        <label className="flex min-h-11 items-center gap-2 text-sm text-slate-700">
+          <Checkbox aria-label="Receber resumo semanal" defaultChecked />
+          Receber resumo semanal deste workspace
+        </label>
+        <SubmitBar cancelLabel="Descartar" submitLabel="Salvar exemplo" />
+      </FormSection>
     </DashboardContent>
   );
 }
@@ -260,7 +397,7 @@ function StarterShell() {
     <DashboardShell
       sidebar={
         <Sidebar
-          brand="uiux-base"
+          brand="uiux-base starter"
           items={routeNav}
           renderLink={(item, { ariaCurrent, children, className }) => (
             <Link aria-current={ariaCurrent} className={className} to={item.href}>
@@ -275,25 +412,33 @@ function StarterShell() {
             { label: "Workspace", tone: "success", value: "Ativo" },
             { label: "App", value: appMetadata.packageName },
             {
-              label: "Scripts",
-              value: workspaceConfig.requiredRootScripts.length
+              label: "Pacotes",
+              value: workspaceConfig.packages.length
             }
           ]}
         />
       }
       topbar={
         <Topbar
-          description="Template neutro para produtos internos com shell, guards e features organizadas."
+          actions={
+            <AppStateBoundary accessStatus="allowed" workspaceState="ready">
+              <StatusBadge status="success">Ready</StatusBadge>
+            </AppStateBoundary>
+          }
+          description="Template neutro para iniciar produtos internos com rotas, states e fixtures substituiveis."
           eyebrow="@uiux-base/app-kit"
-          title="uiux-base starter"
+          title="Starter app"
         />
       }
     >
       <Routes>
-        <Route element={<OverviewPage />} path="/" />
-        <Route element={<StatusPage />} path="/status" />
-        <Route element={<StatesPage />} path="/estados" />
-        <Route element={<DataPage />} path="/dados" />
+        <Route element={<Navigate replace to="/dashboard" />} path="/" />
+        <Route element={<DashboardPage />} path="/dashboard" />
+        <Route element={<OverviewPage />} path="/dashboard/overview" />
+        <Route element={<RecordsPage />} path="/dashboard/records" />
+        <Route element={<AnalyticsPage />} path="/dashboard/analytics" />
+        <Route element={<SettingsPage />} path="/dashboard/settings" />
+        <Route element={<Navigate replace to="/dashboard" />} path="*" />
       </Routes>
     </DashboardShell>
   );
