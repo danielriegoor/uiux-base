@@ -10,6 +10,36 @@ export {
 export { FieldGroup, type FieldGroupProps } from "./components/forms/FieldGroup";
 export { FormSection, type FormSectionProps } from "./components/forms/FormSection";
 export { SubmitBar, type SubmitBarProps } from "./components/forms/SubmitBar";
+export {
+  ChartPanel,
+  type ChartPanelProps,
+  type ChartPanelType,
+  type ChartSeriesConfig
+} from "./components/data-display/ChartPanel";
+export {
+  ChartTooltip,
+  type ChartTooltipDataKey,
+  type ChartTooltipPayloadItem,
+  type ChartTooltipProps,
+  type ChartTooltipValue,
+  type ChartValueFormatter
+} from "./components/data-display/ChartTooltip";
+export {
+  DataTable,
+  type DataTableProps
+} from "./components/data-display/DataTable";
+export {
+  DataTableEmptyState,
+  type DataTableEmptyStateProps
+} from "./components/data-display/DataTableEmptyState";
+export {
+  DataTablePagination,
+  type DataTablePaginationProps
+} from "./components/data-display/DataTablePagination";
+export {
+  DataTableToolbar,
+  type DataTableToolbarProps
+} from "./components/data-display/DataTableToolbar";
 export { KpiCard, type KpiCardProps } from "./components/data-display/KpiCard";
 export {
   StatusBadge,

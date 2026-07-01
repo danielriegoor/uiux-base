@@ -3,6 +3,9 @@ import { workspaceConfig } from "@uiux-base/config";
 import {
   BlockedState,
   Button,
+  ChartPanel,
+  DataTable,
+  type DataTableProps,
   Checkbox,
   Dialog,
   DialogContent,
@@ -51,6 +54,93 @@ const appMetadata = createAppMetadata({
 
 const navLinkClass =
   "rounded-md px-3 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600";
+
+type DemoRecord = {
+  id: string;
+  name: string;
+  owner: string;
+  status: "Ativo" | "Pendente" | "Falha";
+  volume: number;
+};
+
+const demoRecords: DemoRecord[] = [
+  {
+    id: "sample-1",
+    name: "Registro Norte",
+    owner: "Equipe A",
+    status: "Ativo",
+    volume: 124
+  },
+  {
+    id: "sample-2",
+    name: "Registro Sul",
+    owner: "Equipe B",
+    status: "Pendente",
+    volume: 86
+  },
+  {
+    id: "sample-3",
+    name: "Registro Leste",
+    owner: "Equipe C",
+    status: "Falha",
+    volume: 42
+  },
+  {
+    id: "sample-4",
+    name: "Registro Oeste",
+    owner: "Equipe A",
+    status: "Ativo",
+    volume: 158
+  },
+  {
+    id: "sample-5",
+    name: "Registro Central",
+    owner: "Equipe D",
+    status: "Pendente",
+    volume: 97
+  },
+  {
+    id: "sample-6",
+    name: "Registro Remoto",
+    owner: "Equipe B",
+    status: "Ativo",
+    volume: 203
+  }
+];
+
+const demoColumns: DataTableProps<DemoRecord>["columns"] = [
+  {
+    accessorKey: "name",
+    header: "Registro"
+  },
+  {
+    accessorKey: "owner",
+    header: "Responsavel"
+  },
+  {
+    accessorKey: "status",
+    cell: ({ row }) => {
+      const status = row.original.status;
+      const badgeStatus =
+        status === "Ativo" ? "success" : status === "Pendente" ? "warning" : "danger";
+
+      return <StatusBadge status={badgeStatus}>{status}</StatusBadge>;
+    },
+    header: "Status"
+  },
+  {
+    accessorKey: "volume",
+    cell: ({ row }) => row.original.volume.toLocaleString("pt-BR"),
+    header: "Volume"
+  }
+];
+
+const demoChartData = [
+  { period: "Jan", backlog: 42, done: 78 },
+  { period: "Fev", backlog: 36, done: 92 },
+  { period: "Mar", backlog: 28, done: 116 },
+  { period: "Abr", backlog: 31, done: 128 }
+];
 
 function FoundationPage() {
   return (
@@ -247,6 +337,76 @@ function DesignSystemPage() {
   );
 }
 
+function DataDisplayPage() {
+  return (
+    <section className="space-y-6">
+      <div className="space-y-2">
+        <p className="text-sm font-medium uppercase tracking-wide text-slate-500">
+          PRD 0004
+        </p>
+        <h1 className="text-2xl font-semibold leading-tight text-slate-950 sm:text-3xl">
+          Data display
+        </h1>
+        <p className="max-w-3xl text-base leading-7 text-slate-600">
+          Exemplos neutros de tabela, paginacao, sorting, filtro e grafico com
+          legenda textual.
+        </p>
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-3">
+        <KpiCard
+          helperText="Total ficticio dos registros visiveis."
+          label="Volume total"
+          trend="Alta controlada"
+          value="710"
+        />
+        <KpiCard
+          helperText="Indicador generico de acompanhamento."
+          label="Itens ativos"
+          trend="Estavel"
+          value="3"
+        />
+        <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+          <p className="text-sm font-medium text-slate-500">Estados cobertos</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <StatusBadge status="info">Loading</StatusBadge>
+            <StatusBadge status="neutral">Empty</StatusBadge>
+            <StatusBadge status="danger">Error</StatusBadge>
+            <StatusBadge status="success">Success</StatusBadge>
+          </div>
+        </div>
+      </div>
+
+      <DataTable
+        columns={demoColumns}
+        data={demoRecords}
+        initialPageSize={5}
+        pageSizeOptions={[5, 10]}
+        renderRowActions={(row) => (
+          <Button size="sm" variant="outline">
+            Abrir {row.original.name}
+          </Button>
+        )}
+        tableDescription="Dados ficticios para validar densidade, filtros e acoes por linha."
+        tableLabel="Registros de exemplo"
+      />
+
+      <ChartPanel
+        ariaLabel="Grafico de volume por periodo"
+        data={demoChartData}
+        description="Series genericas para validar tooltip, eixo e legenda sem depender de dominio real."
+        series={[
+          { key: "done", label: "Concluidos" },
+          { key: "backlog", label: "Pendentes" }
+        ]}
+        title="Volume por periodo"
+        type="area"
+        xAxisKey="period"
+      />
+    </section>
+  );
+}
+
 export function App() {
   return (
     <BrowserRouter>
@@ -269,6 +429,9 @@ export function App() {
               <Link className={navLinkClass} to="/design-system">
                 Design system
               </Link>
+              <Link className={navLinkClass} to="/data-display">
+                Data display
+              </Link>
             </div>
           </nav>
           <main className="box-border min-w-0 rounded-md border border-slate-200 bg-white p-6 shadow-sm">
@@ -276,6 +439,7 @@ export function App() {
               <Route element={<FoundationPage />} path="/" />
               <Route element={<PackagesPage />} path="/packages" />
               <Route element={<DesignSystemPage />} path="/design-system" />
+              <Route element={<DataDisplayPage />} path="/data-display" />
             </Routes>
           </main>
         </div>

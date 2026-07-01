@@ -13,7 +13,14 @@ import {
   type NavigationItemInput
 } from "@uiux-base/app-kit";
 import { workspaceConfig } from "@uiux-base/config";
-import { Button, UiFoundationMark } from "@uiux-base/ui";
+import {
+  Button,
+  ChartPanel,
+  DataTable,
+  StatusBadge,
+  UiFoundationMark,
+  type DataTableProps
+} from "@uiux-base/ui";
 import {
   BrowserRouter,
   Link,
@@ -30,7 +37,80 @@ const appMetadata = createAppMetadata({
 const navItems: NavigationItemInput[] = [
   { href: "/", label: "Visao geral" },
   { href: "/status", label: "Status" },
-  { href: "/estados", label: "Estados" }
+  { href: "/estados", label: "Estados" },
+  { href: "/dados", label: "Dados" }
+];
+
+type StarterRecord = {
+  id: string;
+  name: string;
+  priority: "Alta" | "Media" | "Baixa";
+  status: "Pronto" | "Em revisao" | "Pausado";
+  total: number;
+};
+
+const starterRecords: StarterRecord[] = [
+  {
+    id: "task-1",
+    name: "Fluxo inicial",
+    priority: "Alta",
+    status: "Pronto",
+    total: 32
+  },
+  {
+    id: "task-2",
+    name: "Revisao visual",
+    priority: "Media",
+    status: "Em revisao",
+    total: 18
+  },
+  {
+    id: "task-3",
+    name: "Checklist QA",
+    priority: "Baixa",
+    status: "Pausado",
+    total: 9
+  },
+  {
+    id: "task-4",
+    name: "Ajustes finais",
+    priority: "Alta",
+    status: "Pronto",
+    total: 41
+  }
+];
+
+const starterColumns: DataTableProps<StarterRecord>["columns"] = [
+  {
+    accessorKey: "name",
+    header: "Nome"
+  },
+  {
+    accessorKey: "priority",
+    header: "Prioridade"
+  },
+  {
+    accessorKey: "status",
+    cell: ({ row }) => {
+      const status = row.original.status;
+      const badgeStatus =
+        status === "Pronto" ? "success" : status === "Em revisao" ? "warning" : "neutral";
+
+      return <StatusBadge status={badgeStatus}>{status}</StatusBadge>;
+    },
+    header: "Status"
+  },
+  {
+    accessorKey: "total",
+    header: "Total"
+  }
+];
+
+const starterChartData = [
+  { period: "S1", created: 24, closed: 18 },
+  { period: "S2", created: 28, closed: 22 },
+  { period: "S3", created: 22, closed: 26 },
+  { period: "S4", created: 31, closed: 29 }
 ];
 
 function OverviewPage() {
@@ -136,6 +216,42 @@ function StatesPage() {
   );
 }
 
+function DataPage() {
+  return (
+    <DashboardContent
+      description="Tabela e grafico genericos para iniciar features com dados densos sem backend real."
+      title="Dados operacionais"
+    >
+      <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1.25fr)_minmax(320px,0.75fr)]">
+        <DataTable
+          columns={starterColumns}
+          data={starterRecords}
+          initialPageSize={4}
+          pageSizeOptions={[4, 8]}
+          renderRowActions={(row) => (
+            <Button size="sm" variant="outline">
+              Ver {row.original.name}
+            </Button>
+          )}
+          tableLabel="Registros operacionais"
+        />
+        <ChartPanel
+          ariaLabel="Grafico operacional"
+          data={starterChartData}
+          description="Series ficticias para validar responsividade do starter."
+          series={[
+            { key: "created", label: "Criados" },
+            { key: "closed", label: "Fechados" }
+          ]}
+          title="Fluxo semanal"
+          type="bar"
+          xAxisKey="period"
+        />
+      </div>
+    </DashboardContent>
+  );
+}
+
 function StarterShell() {
   const location = useLocation();
   const routeNav = createRouteNav(navItems, location.pathname);
@@ -177,6 +293,7 @@ function StarterShell() {
         <Route element={<OverviewPage />} path="/" />
         <Route element={<StatusPage />} path="/status" />
         <Route element={<StatesPage />} path="/estados" />
+        <Route element={<DataPage />} path="/dados" />
       </Routes>
     </DashboardShell>
   );

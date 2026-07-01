@@ -39,4 +39,20 @@ describe("starter app", () => {
       ])
     );
   });
+
+  it("navega para dados genericos com tabela e grafico", async () => {
+    render(<App />);
+
+    await userEvent.click(screen.getByRole("link", { name: "Dados" }));
+
+    expect(
+      screen.getByRole("heading", { name: "Dados operacionais" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("table", { name: "Registros operacionais" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", { name: "Grafico operacional" })
+    ).toBeInTheDocument();
+  });
 });

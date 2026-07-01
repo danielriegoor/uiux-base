@@ -7,7 +7,12 @@ export const chartTokens = {
     "hsl(0 72% 51%)"
   ],
   grid: "hsl(214 32% 91%)",
-  axis: "hsl(215 16% 47%)"
+  axis: "hsl(215 16% 47%)",
+  tooltip: {
+    background: "hsl(0 0% 100%)",
+    border: "hsl(214 32% 91%)",
+    text: "hsl(222 47% 11%)"
+  }
 } as const;
 
 export type ChartTokens = typeof chartTokens;
