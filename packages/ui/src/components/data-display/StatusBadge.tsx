@@ -13,11 +13,11 @@ export type StatusBadgeProps = HTMLAttributes<HTMLSpanElement> & {
 };
 
 const statusClasses: Record<StatusBadgeStatus, string> = {
-  neutral: "border-slate-200 bg-slate-50 text-slate-700",
-  info: "border-blue-200 bg-blue-50 text-blue-700",
-  success: "border-emerald-200 bg-emerald-50 text-emerald-700",
-  warning: "border-amber-200 bg-amber-50 text-amber-800",
-  danger: "border-red-200 bg-red-50 text-red-700"
+  neutral: "border-[var(--ui-border-default)] bg-[var(--ui-surface-subtle)] text-[var(--ui-text-body)]",
+  info: "border-[var(--ui-info-border)] bg-[var(--ui-info-surface)] text-[var(--ui-info-text)]",
+  success: "border-[var(--ui-success-border)] bg-[var(--ui-success-surface)] text-[var(--ui-success-text)]",
+  warning: "border-[var(--ui-warning-border)] bg-[var(--ui-warning-surface)] text-[var(--ui-warning-text)]",
+  danger: "border-[var(--ui-danger-border)] bg-[var(--ui-danger-surface)] text-[var(--ui-danger-text)]"
 };
 
 export function StatusBadge({

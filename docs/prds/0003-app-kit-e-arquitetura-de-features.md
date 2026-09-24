@@ -1,5 +1,7 @@
 # PRD 0003 - App Kit e Arquitetura de Features
 
+> Historico da fundacao. O escopo vigente esta em `0007-reset-mvp-npm.md`.
+
 **Status:** Proposto
 **Depende de:** PRDs 0001 e 0002
 

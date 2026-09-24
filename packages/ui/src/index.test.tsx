@@ -21,7 +21,6 @@ import {
   Textarea,
   ToastProvider,
   cn,
-  chartTokens,
   colorTokens,
   spacingTokens
 } from "./index";
@@ -31,7 +30,6 @@ describe("exports publicos do pacote UI", () => {
     expect(cn("px-2", false, "py-1")).toBe("px-2 py-1");
     expect(colorTokens.surface.canvas).toBeDefined();
     expect(spacingTokens.component.md).toBeDefined();
-    expect(chartTokens.series.length).toBeGreaterThan(0);
   });
 
   it("renderiza primitives basicos com nomes acessiveis", () => {

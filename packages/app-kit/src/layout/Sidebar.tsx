@@ -27,7 +27,7 @@ function renderItemContent(item: NavigationItem) {
       <span className="min-w-0 flex-1">
         <span className="block truncate">{item.label}</span>
         {item.description ? (
-          <span className="block truncate text-xs font-normal text-slate-500">
+          <span className="block truncate text-xs font-normal text-[var(--ui-text-muted)]">
             {item.description}
           </span>
         ) : null}
@@ -50,14 +50,14 @@ export function Sidebar({
       aria-label={ariaLabel}
       className={cx("box-border flex h-full min-w-0 flex-col gap-5 p-4", className)}
     >
-      <div className="min-w-0 text-sm font-semibold text-slate-950">{brand}</div>
+      <div className="min-w-0 text-sm font-semibold text-[var(--ui-text-strong)]">{brand}</div>
       <div className="flex min-w-0 flex-col gap-1">
         {items.map((item) => {
           const itemClassName = cx(
-            "flex min-h-10 min-w-0 items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600",
+            "flex min-h-11 min-w-0 items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-ring)]",
             item.isCurrent
-              ? "bg-blue-50 text-blue-800"
-              : "text-slate-700 hover:bg-slate-100 hover:text-slate-950",
+              ? "bg-[var(--ui-info-surface)] text-[var(--ui-accent-text)]"
+              : "text-[var(--ui-text-body)] hover:bg-[var(--ui-surface-muted)] hover:text-[var(--ui-text-strong)]",
             item.disabled && "pointer-events-none opacity-50"
           );
           const children = renderItemContent(item);

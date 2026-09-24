@@ -59,21 +59,6 @@ export {
   type WorkspaceStateNoticeProps
 } from "./states/WorkspaceStateNotice";
 export {
-  ApiClientError,
-  apiClient,
-  createApiClient,
-  type ApiClient,
-  type ApiClientMethod,
-  type ApiClientOptions,
-  type ApiClientRequestOptions
-} from "./services/apiClient";
-export {
-  createMockClient,
-  type MockClientRequest,
-  type MockRouteHandler,
-  type MockRouteMap
-} from "./services/createMockClient";
-export {
   useAsyncState,
   type AsyncState,
   type AsyncStatus,

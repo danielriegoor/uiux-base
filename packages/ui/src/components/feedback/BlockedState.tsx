@@ -18,7 +18,7 @@ export function BlockedState({
   return (
     <section
       className={cn(
-        "flex flex-col items-start gap-3 rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-950",
+        "flex flex-col items-start gap-3 rounded-lg border border-[var(--ui-warning-border)] bg-[var(--ui-warning-surface)] p-4 text-[var(--ui-warning-text)]",
         className
       )}
     >

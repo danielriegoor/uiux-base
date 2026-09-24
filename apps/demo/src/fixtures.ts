@@ -44,13 +44,6 @@ export type DemoRecord = {
   volume: number;
 };
 
-export type DemoChartPoint = {
-  period: string;
-  users: number;
-  projects: number;
-  events: number;
-};
-
 export const demoUsers: DemoUser[] = [
   {
     id: "demo-user-1",
@@ -205,12 +198,4 @@ export const demoRecords: DemoRecord[] = [
   { id: "demo-record-6", name: "Record Remote", owner: "Casey Park", status: "Active", volume: 203 },
   { id: "demo-record-7", name: "Record Local", owner: "Taylor Chen", status: "Failed", volume: 64 },
   { id: "demo-record-8", name: "Record Shared", owner: "Riley Brown", status: "Active", volume: 139 }
-];
-
-export const demoChartData: DemoChartPoint[] = [
-  { events: 112, period: "Jan", projects: 28, users: 320 },
-  { events: 148, period: "Fev", projects: 31, users: 382 },
-  { events: 136, period: "Mar", projects: 34, users: 421 },
-  { events: 174, period: "Abr", projects: 36, users: 468 },
-  { events: 192, period: "Mai", projects: 39, users: 512 }
 ];

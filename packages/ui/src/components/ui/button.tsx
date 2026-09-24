@@ -4,22 +4,22 @@ import { forwardRef, type ButtonHTMLAttributes } from "react";
 import { cn } from "../../lib/cn";
 
 export const buttonVariants = cva(
-  "inline-flex min-h-10 items-center justify-center gap-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex min-h-11 items-center justify-center gap-2 rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-ring)] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "bg-slate-950 text-white hover:bg-slate-800",
-        secondary: "bg-slate-100 text-slate-950 hover:bg-slate-200",
+        default: "bg-[var(--ui-accent-solid)] text-[var(--ui-on-accent)] hover:bg-[var(--ui-accent-hover)]",
+        secondary: "bg-[var(--ui-surface-muted)] text-[var(--ui-text-strong)] hover:bg-[var(--ui-border-default)]",
         outline:
-          "border border-slate-300 bg-white text-slate-800 hover:bg-slate-50",
-        ghost: "text-slate-700 hover:bg-slate-100 hover:text-slate-950",
-        destructive: "bg-red-600 text-white hover:bg-red-700"
+          "border border-[var(--ui-border-strong)] bg-[var(--ui-surface-panel)] text-[var(--ui-text-body)] hover:bg-[var(--ui-surface-subtle)]",
+        ghost: "text-[var(--ui-text-body)] hover:bg-[var(--ui-surface-muted)] hover:text-[var(--ui-text-strong)]",
+        destructive: "bg-[var(--ui-danger-solid)] text-[var(--ui-on-accent)] hover:bg-[var(--ui-danger-hover)]"
       },
       size: {
-        sm: "h-9 px-3",
-        md: "h-10 px-4",
+        sm: "h-11 px-3",
+        md: "h-11 px-4",
         lg: "h-11 px-5",
-        icon: "h-10 w-10 p-0"
+        icon: "h-11 w-11 p-0"
       }
     },
     defaultVariants: {

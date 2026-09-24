@@ -13,7 +13,7 @@ export const TooltipContent = forwardRef<
   <TooltipPrimitive.Portal>
     <TooltipPrimitive.Content
       className={cn(
-        "z-50 overflow-hidden rounded-md bg-slate-950 px-3 py-1.5 text-xs text-white shadow-md data-[state=closed]:animate-out data-[state=open]:animate-in",
+        "z-50 overflow-hidden rounded-md bg-[var(--ui-accent-solid)] px-3 py-1.5 text-xs text-[var(--ui-on-accent)] shadow-md data-[state=closed]:animate-out data-[state=open]:animate-in",
         className
       )}
       ref={ref}

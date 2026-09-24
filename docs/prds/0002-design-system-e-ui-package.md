@@ -1,5 +1,7 @@
 # PRD 0002 - Design System e UI Package
 
+> Historico da fundacao. O escopo vigente esta em `0007-reset-mvp-npm.md`.
+
 **Status:** Proposto
 **Depende de:** PRD 0001
 

@@ -12,7 +12,7 @@
 
 ## Arquitetura
 
-- Use pnpm workspaces com apps em `apps/*` e packages em `packages/*`.
+- Use npm workspaces com apps em `apps/*` e packages em `packages/*`.
 - Mantenha `apps/starter` como app base pequeno e executavel.
 - Mantenha `apps/demo` como vitrine tecnica das PRDs, sem dados reais.
 - Mantenha `packages/ui` focado em primitives e componentes visuais reutilizaveis.
@@ -34,11 +34,11 @@
 
 ## Scripts esperados
 
-- `pnpm lint`
-- `pnpm typecheck`
-- `pnpm test`
-- `pnpm build`
-- `pnpm check`
+- `npm run lint`
+- `npm run typecheck`
+- `npm run test`
+- `npm run build`
+- `npm run check`
 
 ## Validacao
 

@@ -22,7 +22,7 @@ describe("demo app", () => {
     expect(screen.getByText("Nenhum resultado generico")).toBeInTheDocument();
   });
 
-  it("navega para data-table, charts, dashboard-shell e states", async () => {
+  it("navega para data-table, dashboard-shell e states", async () => {
     window.history.pushState({}, "", "/components");
 
     render(<App />);
@@ -33,18 +33,12 @@ describe("demo app", () => {
       screen.getByRole("table", { name: "Projetos genericos" })
     ).toBeInTheDocument();
 
-    await userEvent.click(screen.getByRole("link", { name: "Charts" }));
-    expect(screen.getByRole("heading", { name: "Charts" })).toBeInTheDocument();
-    expect(
-      screen.getByRole("img", { name: "Grafico de metricas genericas" })
-    ).toBeInTheDocument();
-
     await userEvent.click(screen.getByRole("link", { name: "Dashboard shell" }));
     expect(
       screen.getByRole("heading", { name: "Dashboard shell" })
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "@uiux-base/app-kit" })
+      screen.getByRole("heading", { name: "uiux-base-app-kit" })
     ).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole("link", { name: "States" }));

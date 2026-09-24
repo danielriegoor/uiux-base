@@ -162,7 +162,7 @@ export function DataTable<TData>({
     <section
       aria-label={tableLabel}
       className={cn(
-        "min-w-0 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm",
+        "min-w-0 overflow-hidden rounded-lg border border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] shadow-sm",
         className
       )}
     >
@@ -174,7 +174,7 @@ export function DataTable<TData>({
         searchPlaceholder={searchPlaceholder}
       />
       {tableDescription ? (
-        <div className="border-b border-slate-200 px-3 py-2 text-sm leading-6 text-slate-600">
+        <div className="border-b border-[var(--ui-border-default)] px-3 py-2 text-sm leading-6 text-[var(--ui-text-muted)]">
           {tableDescription}
         </div>
       ) : null}
@@ -183,7 +183,7 @@ export function DataTable<TData>({
           aria-label={tableLabel}
           className="min-w-[720px] table-auto border-collapse text-left text-sm"
         >
-          <thead className="bg-slate-50 text-xs uppercase text-slate-500">
+          <thead className="bg-[var(--ui-surface-subtle)] text-xs uppercase text-[var(--ui-text-muted)]">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -198,13 +198,13 @@ export function DataTable<TData>({
                   return (
                     <th
                       aria-sort={ariaSort}
-                      className="border-b border-slate-200 px-3 py-3 font-semibold"
+                      className="border-b border-[var(--ui-border-default)] px-3 py-3 font-semibold"
                       key={header.id}
                       scope="col"
                     >
                       {header.isPlaceholder ? null : header.column.getCanSort() ? (
                         <button
-                          className="inline-flex items-center gap-2 rounded-sm text-left font-semibold text-slate-600 transition-colors hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+                          className="inline-flex items-center gap-2 rounded-sm text-left font-semibold text-[var(--ui-text-muted)] transition-colors hover:text-[var(--ui-text-strong)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-ring)]"
                           onClick={header.column.getToggleSortingHandler()}
                           type="button"
                         >
@@ -226,10 +226,10 @@ export function DataTable<TData>({
               </tr>
             ))}
           </thead>
-          <tbody className="divide-y divide-slate-100 text-slate-700">
+          <tbody className="divide-y divide-[var(--ui-border-default)] text-[var(--ui-text-body)]">
             {visibleRows.length > 0 ? (
               visibleRows.map((row) => (
-                <tr className="hover:bg-slate-50" key={row.id}>
+                <tr className="hover:bg-[var(--ui-surface-subtle)]" key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <td className="px-3 py-3 align-middle" key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}

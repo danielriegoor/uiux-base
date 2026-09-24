@@ -27,7 +27,7 @@ export function DataTableToolbar({
   return (
     <div
       className={cn(
-        "flex flex-col gap-3 border-b border-slate-200 p-3 sm:flex-row sm:items-center sm:justify-between",
+        "flex flex-col gap-3 border-b border-[var(--ui-border-default)] p-3 sm:flex-row sm:items-center sm:justify-between",
         className
       )}
     >
@@ -49,7 +49,7 @@ export function DataTableToolbar({
       </div>
       <div className="flex min-w-0 flex-wrap items-center gap-3">
         {resultLabel ? (
-          <p className="text-sm text-slate-500" role="status">
+          <p className="text-sm text-[var(--ui-text-muted)]" role="status">
             {resultLabel}
           </p>
         ) : null}

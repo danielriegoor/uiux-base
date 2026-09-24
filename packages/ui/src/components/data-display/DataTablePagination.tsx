@@ -21,20 +21,20 @@ export function DataTablePagination<TData>({
   return (
     <div
       className={cn(
-        "flex flex-col gap-3 border-t border-slate-200 p-3 sm:flex-row sm:items-center sm:justify-between",
+        "flex flex-col gap-3 border-t border-[var(--ui-border-default)] p-3 sm:flex-row sm:items-center sm:justify-between",
         className
       )}
     >
-      <p className="text-sm text-slate-600">
+      <p className="text-sm text-[var(--ui-text-muted)]">
         Pagina {pageIndex + 1} de {pageCount}
       </p>
 
       <div className="flex flex-wrap items-center gap-3">
-        <label className="flex items-center gap-2 text-sm text-slate-600">
+        <label className="flex items-center gap-2 text-sm text-[var(--ui-text-muted)]">
           Linhas por pagina
           <select
             aria-label="Linhas por pagina"
-            className="h-9 rounded-md border border-slate-300 bg-white px-2 text-sm text-slate-950 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+            className="h-9 rounded-md border border-[var(--ui-border-strong)] bg-[var(--ui-surface-panel)] px-2 text-sm text-[var(--ui-text-strong)] shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-ring)]"
             onChange={(event) => {
               table.setPageSize(Number(event.target.value));
               table.setPageIndex(0);

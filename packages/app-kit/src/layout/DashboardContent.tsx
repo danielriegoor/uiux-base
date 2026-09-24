@@ -22,15 +22,15 @@ export function DashboardContent({
   return (
     <section className={cx("min-w-0 space-y-5", className)}>
       {title || description || actions ? (
-        <div className="flex min-w-0 flex-col gap-4 border-b border-slate-200 pb-5 md:flex-row md:items-start md:justify-between">
+        <div className="flex min-w-0 flex-col gap-4 border-b border-[var(--ui-border-default)] pb-5 md:flex-row md:items-start md:justify-between">
           <div className="min-w-0 space-y-2">
             {title ? (
-              <h1 className="text-2xl font-semibold leading-tight text-slate-950 sm:text-3xl">
+              <h1 className="text-2xl font-semibold leading-tight text-[var(--ui-text-strong)] sm:text-3xl">
                 {title}
               </h1>
             ) : null}
             {description ? (
-              <p className="max-w-3xl text-sm leading-6 text-slate-600 sm:text-base">
+              <p className="max-w-3xl text-sm leading-6 text-[var(--ui-text-muted)] sm:text-base">
                 {description}
               </p>
             ) : null}

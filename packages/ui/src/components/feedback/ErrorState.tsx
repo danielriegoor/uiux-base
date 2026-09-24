@@ -18,7 +18,7 @@ export function ErrorState({
   return (
     <section
       className={cn(
-        "flex flex-col gap-3 rounded-lg border border-red-200 bg-red-50 p-4 text-red-950",
+        "flex flex-col gap-3 rounded-lg border border-[var(--ui-danger-border)] bg-[var(--ui-danger-surface)] p-4 text-[var(--ui-danger-text)]",
         className
       )}
       role="alert"

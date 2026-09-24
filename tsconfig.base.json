@@ -7,10 +7,16 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "allowImportingTsExtensions": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "paths": {
+      "@uiux-base/config": ["./packages/config/src/index.ts"],
+      "uiux-base": ["./packages/ui/src/index.tsx"],
+      "uiux-base-app-kit": ["./packages/app-kit/src/index.ts"]
+    },
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,

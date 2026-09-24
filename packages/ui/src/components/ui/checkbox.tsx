@@ -9,7 +9,7 @@ export const Checkbox = forwardRef<
 >(({ className, ...props }, ref) => (
   <CheckboxPrimitive.Root
     className={cn(
-      "peer flex h-5 w-5 shrink-0 items-center justify-center rounded border border-slate-300 bg-white shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-slate-950 data-[state=checked]:bg-slate-950 data-[state=checked]:text-white",
+      "peer flex h-5 w-5 shrink-0 items-center justify-center rounded border border-[var(--ui-border-strong)] bg-[var(--ui-surface-panel)] shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ui-ring)] disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-[var(--ui-accent-solid)] data-[state=checked]:bg-[var(--ui-accent-solid)] data-[state=checked]:text-[var(--ui-on-accent)]",
       className
     )}
     ref={ref}

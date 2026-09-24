@@ -13,7 +13,7 @@
 1. Crie um cliente de API do produto em uma camada local do app, por exemplo `src/services/api.ts`.
 2. Mapeie a resposta externa para os tipos usados pela tela (`RecordFixture`, `DemoProject`, metricas e series temporais).
 3. Mantenha estados explicitos de `loading`, `empty`, `error` e `blocked`.
-4. Passe os dados normalizados para `DataTable`, `ChartPanel`, `KpiCard` e componentes de formulario.
+4. Passe os dados normalizados para `DataTable`, `KpiCard` e componentes de formulario.
 5. Remova fixtures da rota somente depois de ter testes cobrindo sucesso, vazio e erro.
 
 ## Exemplo de adaptador

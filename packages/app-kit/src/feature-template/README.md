@@ -1,25 +1,20 @@
-# Feature Template
+# Feature minima
 
-Use esta pasta como molde para novas features em apps React/Vite baseados no
-`uiux-base`.
+Comece somente com o componente que entrega a experiencia:
 
 ```text
-src/features/example/
-  api.ts
-  types.ts
-  schemas.ts
-  hooks.ts
+feature-name/
   components/
-  README.md
+    FeatureView.tsx
 ```
 
-## Regras do molde
+Adicione arquivos apenas quando houver repeticao ou uma fronteira real:
 
-- `types.ts` concentra tipos publicos da feature.
-- `schemas.ts` concentra validacoes leves e normalizacao de payload.
-- `api.ts` usa funcoes diretas sobre `ApiClient`, sem repository pattern.
-- `hooks.ts` orquestra estado de UI com hooks genericos.
-- `components/` fica para componentes pequenos e especificos da feature.
+- `hooks/` para comportamento reutilizado por mais de um componente;
+- tipos publicos perto do componente que os possui;
+- schema runtime apenas para entrada nao confiavel, como formulario, JSON externo,
+  storage ou resposta de API;
+- funcoes de acesso a dados pertencem ao app consumidor, nao ao `uiux-base`.
 
-Evite colocar auth real, backend real, chaves, endpoints sensiveis ou regra de
-dominio dentro deste template.
+Evite criar por padrao `api.ts`, DTOs, repositories, schemas espelho do backend ou
+uma camada de contratos para props internas ja verificadas pelo TypeScript.

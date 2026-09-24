@@ -11,7 +11,13 @@ export default defineConfig({
       fileName: "index"
     },
     rolldownOptions: {
-      external: ["react", "react-dom", "react/jsx-runtime"]
+      external: [
+        "@radix-ui/react-dialog",
+        "lucide-react",
+        "react",
+        "react-dom",
+        "react/jsx-runtime"
+      ]
     }
   },
   test: {

@@ -17,7 +17,7 @@ export const DropdownMenuContent = forwardRef<
   <DropdownMenuPrimitive.Portal>
     <DropdownMenuPrimitive.Content
       className={cn(
-        "z-50 min-w-40 overflow-hidden rounded-md border border-slate-200 bg-white p-1 text-slate-950 shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out",
+        "z-50 min-w-40 overflow-hidden rounded-md border border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] p-1 text-[var(--ui-text-strong)] shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out",
         className
       )}
       ref={ref}
@@ -37,7 +37,7 @@ export const DropdownMenuItem = forwardRef<
 >(({ className, inset, ...props }, ref) => (
   <DropdownMenuPrimitive.Item
     className={cn(
-      "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-slate-100 focus:text-slate-950 data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-[var(--ui-surface-muted)] focus:text-[var(--ui-text-strong)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       inset && "pl-8",
       className
     )}
@@ -55,7 +55,7 @@ export const DropdownMenuCheckboxItem = forwardRef<
   <DropdownMenuPrimitive.CheckboxItem
     checked={checked}
     className={cn(
-      "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-slate-100 focus:text-slate-950 data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-[var(--ui-surface-muted)] focus:text-[var(--ui-text-strong)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
     ref={ref}
@@ -79,7 +79,7 @@ export const DropdownMenuRadioItem = forwardRef<
 >(({ children, className, ...props }, ref) => (
   <DropdownMenuPrimitive.RadioItem
     className={cn(
-      "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-slate-100 focus:text-slate-950 data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-[var(--ui-surface-muted)] focus:text-[var(--ui-text-strong)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
     ref={ref}
@@ -104,7 +104,7 @@ export const DropdownMenuLabel = forwardRef<
 >(({ className, inset, ...props }, ref) => (
   <DropdownMenuPrimitive.Label
     className={cn(
-      "px-2 py-1.5 text-xs font-semibold text-slate-500",
+      "px-2 py-1.5 text-xs font-semibold text-[var(--ui-text-muted)]",
       inset && "pl-8",
       className
     )}
@@ -120,7 +120,7 @@ export const DropdownMenuSeparator = forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.Separator
-    className={cn("-mx-1 my-1 h-px bg-slate-200", className)}
+    className={cn("-mx-1 my-1 h-px bg-[var(--ui-border-default)]", className)}
     ref={ref}
     {...props}
   />
@@ -133,7 +133,7 @@ export const DropdownMenuShortcut = ({
   ...props
 }: React.HTMLAttributes<HTMLSpanElement>) => (
   <span
-    className={cn("ml-auto text-xs tracking-widest text-slate-500", className)}
+    className={cn("ml-auto text-xs tracking-widest text-[var(--ui-text-muted)]", className)}
     {...props}
   />
 );
@@ -146,7 +146,7 @@ export const DropdownMenuSubTrigger = forwardRef<
 >(({ children, className, inset, ...props }, ref) => (
   <DropdownMenuPrimitive.SubTrigger
     className={cn(
-      "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-slate-100 data-[state=open]:bg-slate-100",
+      "flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-[var(--ui-surface-muted)] data-[state=open]:bg-[var(--ui-surface-muted)]",
       inset && "pl-8",
       className
     )}
@@ -167,7 +167,7 @@ export const DropdownMenuSubContent = forwardRef<
 >(({ className, ...props }, ref) => (
   <DropdownMenuPrimitive.SubContent
     className={cn(
-      "z-50 min-w-40 overflow-hidden rounded-md border border-slate-200 bg-white p-1 text-slate-950 shadow-md",
+      "z-50 min-w-40 overflow-hidden rounded-md border border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] p-1 text-[var(--ui-text-strong)] shadow-md",
       className
     )}
     ref={ref}
