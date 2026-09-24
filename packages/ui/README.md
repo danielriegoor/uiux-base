@@ -1,6 +1,6 @@
 # uiux-base
 
-Pacote npm publico de UI/UX para React 18. Inclui primitives acessiveis,
+Pacote npm publico de UI/UX para React 18 e 19. Inclui primitives acessiveis,
 componentes de feedback, formularios, data table e o app shell exportado pelo
 `uiux-base-app-kit`.
 
@@ -16,6 +16,10 @@ import { Button, DashboardShell, KpiCard, StatusBadge } from "uiux-base";
 O CSS e precompilado: o consumidor nao precisa apontar o Tailwind para o codigo
 fonte do pacote. Para tema escuro, aplique `data-ui-theme="dark"` ou a classe
 `dark` em um ancestral. Tokens `--ui-*` podem ser sobrescritos pelo produto.
+
+`styles.css` agrega tokens, reset e componentes. Para integracao avancada,
+importe separadamente `tokens.css`, `components.css` e, se desejado,
+`reset.css`.
 
 O pacote nao contem regra de negocio, API, auth, billing, graficos ou schemas de
 contrato. React e React DOM sao peer dependencies.

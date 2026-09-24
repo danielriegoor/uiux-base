@@ -11,6 +11,25 @@ import {
 } from "../index";
 
 describe("DashboardShell", () => {
+  it("expoe tons semanticos validos nos indicadores de status", () => {
+    const { container } = render(
+      <StatusBar
+        items={[
+          { label: "Neutro", tone: "neutral", value: "Pronto" },
+          { label: "Sucesso", tone: "success", value: "Pronto" },
+          { label: "Atencao", tone: "warning", value: "Pronto" },
+          { label: "Falha", tone: "danger", value: "Pronto" }
+        ]}
+      />
+    );
+
+    for (const tone of ["neutral", "success", "warning", "danger"]) {
+      expect(
+        container.querySelector(`[data-ui-status-tone="${tone}"]`)
+      ).toHaveClass("ui-status-dot");
+    }
+  });
+
   it("renderiza shell responsivo com sidebar, topbar, conteudo e status bar", () => {
     const navItems = createRouteNav([
       { href: "/", isCurrent: true, label: "Inicio" },

@@ -93,7 +93,12 @@ export {
   TooltipTrigger
 } from "./components/ui/tooltip";
 export { cn } from "./lib/cn";
-export { colorTokens, type ColorTokens } from "./tokens/colors";
+export {
+  colorTokens,
+  themeTokens,
+  type ColorTokens,
+  type ThemeTokens
+} from "./tokens/colors";
 export { spacingTokens, type SpacingTokens } from "./tokens/spacing";
 
 export function UiFoundationMark() {

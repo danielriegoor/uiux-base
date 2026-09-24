@@ -1,6 +1,6 @@
 {
   "name": "uiux-base-app-kit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Shell, navigation and visual application states for uiux-base.",
   "license": "MIT",
   "type": "module",
@@ -10,6 +10,7 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -32,7 +33,7 @@
     "lint": "eslint . --max-warnings=0",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json --noEmit --pretty false",
-    "build": "npm run typecheck && vite build && tsc -p tsconfig.build.json",
+    "build": "npm run typecheck && vite build && tsc -p tsconfig.build.json && node ../../scripts/fix-declaration-imports.mjs dist",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {

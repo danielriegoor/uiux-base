@@ -27,7 +27,20 @@ import {
 ```
 
 O CSS ja esta compilado. Nao adicione o `src` deste package ao scan do Tailwind.
-React 18 e React DOM 18 devem existir no app consumidor.
+React e React DOM 18 ou 19 devem existir no app consumidor.
+
+### CSS opt-in
+
+O import `styles.css` agrega tokens, reset e componentes. Um produto que ja
+possui reset global pode importar somente as camadas necessarias:
+
+```tsx
+import "uiux-base/tokens.css";
+import "uiux-base/components.css";
+```
+
+Adicione `uiux-base/reset.css` somente se quiser o reset e a regra global de
+`prefers-reduced-motion` da biblioteca.
 
 ### Personalizar a marca
 
@@ -78,13 +91,18 @@ frontend e nao introduza repository pattern por convencao.
 
 ## Publicacao npm
 
-Os pacotes publicos sao publicados nesta ordem:
+Cada mudanca publica recebe um Changeset. A tag/release so pode ser criada
+depois de `npm run version:packages` e do merge em `main`.
+
+Os pacotes publicos sao publicados pelo workflow `publish.yml`, nesta ordem:
 
 ```bash
-npm run check
-npm publish --workspace uiux-base-app-kit --access public
-npm publish --workspace uiux-base --access public
+npm run release:check -- vX.Y.Z
+npm publish --workspace uiux-base-app-kit --access public --provenance
+npm publish --workspace uiux-base --access public --provenance
 ```
 
-O segundo depende da mesma versao publicada do app-kit. A verificacao final e
-feita instalando `uiux-base` em um diretorio temporario limpo.
+O npm autoriza o workflow por trusted publishing OIDC, sem segredo de longa
+duracao. O segundo package depende da mesma versao publicada do app-kit. A
+verificacao final e feita instalando `uiux-base` pelo registry em um diretorio
+temporario limpo.

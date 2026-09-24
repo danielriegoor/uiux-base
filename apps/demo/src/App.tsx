@@ -133,7 +133,7 @@ function ComponentsPage() {
             </TabsList>
 
             <TabsContent value="actions">
-              <div className="flex flex-wrap items-center gap-3 rounded-lg border border-slate-200 bg-white p-4">
+              <div className="flex flex-wrap items-center gap-3 rounded-lg border border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] p-4">
                 <Dialog>
                   <DialogTrigger asChild>
                     <Button>Abrir dialog</Button>
@@ -180,7 +180,7 @@ function ComponentsPage() {
             </TabsContent>
 
             <TabsContent value="badges">
-              <div className="flex flex-wrap gap-2 rounded-lg border border-slate-200 bg-white p-4">
+              <div className="flex flex-wrap gap-2 rounded-lg border border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] p-4">
                 <StatusBadge status="success">Active</StatusBadge>
                 <StatusBadge status="warning">Review</StatusBadge>
                 <StatusBadge status="danger">Failed</StatusBadge>
@@ -190,7 +190,7 @@ function ComponentsPage() {
             </TabsContent>
 
             <TabsContent value="package">
-              <div className="rounded-lg border border-slate-200 bg-white p-4">
+              <div className="rounded-lg border border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] p-4">
                 <UiFoundationMark />
               </div>
             </TabsContent>
@@ -234,7 +234,7 @@ function FormsPage() {
             placeholder="Notas curtas para demonstrar textarea"
           />
         </FieldGroup>
-        <label className="flex min-h-11 items-center gap-2 text-sm text-slate-700">
+        <label className="flex min-h-11 items-center gap-2 text-sm text-[var(--ui-text-body)]">
           <Checkbox aria-label="Receber atualizacoes" />
           Receber atualizacoes deste registro
         </label>
@@ -305,30 +305,30 @@ function DashboardShellPage() {
       title="Dashboard shell"
     >
       <div className="grid gap-4 lg:grid-cols-3">
-        <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-          <p className="text-sm font-medium text-slate-500">Package</p>
-          <h2 className="mt-2 text-lg font-semibold text-slate-950">
+        <section className="rounded-lg border border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] p-4 shadow-sm">
+          <p className="text-sm font-medium text-[var(--ui-text-muted)]">Package</p>
+          <h2 className="mt-2 text-lg font-semibold text-[var(--ui-text-strong)]">
             uiux-base-app-kit
           </h2>
-          <p className="mt-2 text-sm leading-6 text-slate-600">
+          <p className="mt-2 text-sm leading-6 text-[var(--ui-text-body)]">
             Shell, navegacao e status bar ficam fora de qualquer dominio.
           </p>
         </section>
-        <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-          <p className="text-sm font-medium text-slate-500">Rotas</p>
-          <p className="mt-2 text-2xl font-semibold text-slate-950">
+        <section className="rounded-lg border border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] p-4 shadow-sm">
+          <p className="text-sm font-medium text-[var(--ui-text-muted)]">Rotas</p>
+          <p className="mt-2 text-2xl font-semibold text-[var(--ui-text-strong)]">
             {navItems.length}
           </p>
-          <p className="mt-2 text-sm leading-6 text-slate-600">
+          <p className="mt-2 text-sm leading-6 text-[var(--ui-text-body)]">
             Todos os links sao rotas reais do React Router.
           </p>
         </section>
-        <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-          <p className="text-sm font-medium text-slate-500">Workspace</p>
-          <p className="mt-2 text-2xl font-semibold text-slate-950">
+        <section className="rounded-lg border border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] p-4 shadow-sm">
+          <p className="text-sm font-medium text-[var(--ui-text-muted)]">Workspace</p>
+          <p className="mt-2 text-2xl font-semibold text-[var(--ui-text-strong)]">
             {workspaceConfig.packages.length}
           </p>
-          <p className="mt-2 text-sm leading-6 text-slate-600">
+          <p className="mt-2 text-sm leading-6 text-[var(--ui-text-body)]">
             Pacotes reutilizados sem criar dependencia circular.
           </p>
         </section>
