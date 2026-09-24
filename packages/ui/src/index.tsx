@@ -1,3 +1,5 @@
+export * from "uiux-base-app-kit";
+
 export { BlockedState, type BlockedStateProps } from "./components/feedback/BlockedState";
 export { EmptyState, type EmptyStateProps } from "./components/feedback/EmptyState";
 export { ErrorState, type ErrorStateProps } from "./components/feedback/ErrorState";
@@ -10,20 +12,6 @@ export {
 export { FieldGroup, type FieldGroupProps } from "./components/forms/FieldGroup";
 export { FormSection, type FormSectionProps } from "./components/forms/FormSection";
 export { SubmitBar, type SubmitBarProps } from "./components/forms/SubmitBar";
-export {
-  ChartPanel,
-  type ChartPanelProps,
-  type ChartPanelType,
-  type ChartSeriesConfig
-} from "./components/data-display/ChartPanel";
-export {
-  ChartTooltip,
-  type ChartTooltipDataKey,
-  type ChartTooltipPayloadItem,
-  type ChartTooltipProps,
-  type ChartTooltipValue,
-  type ChartValueFormatter
-} from "./components/data-display/ChartTooltip";
 export {
   DataTable,
   type DataTableProps
@@ -105,7 +93,6 @@ export {
   TooltipTrigger
 } from "./components/ui/tooltip";
 export { cn } from "./lib/cn";
-export { chartTokens, type ChartTokens } from "./tokens/chartTokens";
 export { colorTokens, type ColorTokens } from "./tokens/colors";
 export { spacingTokens, type SpacingTokens } from "./tokens/spacing";
 
@@ -113,10 +100,10 @@ export function UiFoundationMark() {
   return (
     <div
       aria-label="Estado do pacote UI"
-      className="inline-flex items-center gap-2 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-700"
+      className="inline-flex items-center gap-2 rounded-md border border-[var(--ui-border-strong)] bg-[var(--ui-surface-panel)] px-3 py-2 text-sm text-[var(--ui-text-body)]"
     >
-      <strong className="font-semibold text-slate-950">Pacote UI pronto</strong>
-      <span className="text-slate-500">base neutra</span>
+      <strong className="font-semibold text-[var(--ui-text-strong)]">uiux-base pronto</strong>
+      <span className="text-[var(--ui-text-muted)]">pacote npm neutro</span>
     </div>
   );
 }

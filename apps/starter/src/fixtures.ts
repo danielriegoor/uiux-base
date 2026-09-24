@@ -48,13 +48,6 @@ export type RecordFixture = {
   total: number;
 };
 
-export type TimeSeriesPoint = {
-  period: string;
-  created: number;
-  resolved: number;
-  reviewed: number;
-};
-
 export const userFixtures: FixtureUser[] = [
   {
     id: "user-1",
@@ -249,15 +242,6 @@ export const recordFixtures: RecordFixture[] = [
     total: 74,
     updatedAt: "2026-07-01"
   }
-];
-
-export const timeSeriesFixtures: TimeSeriesPoint[] = [
-  { created: 24, period: "S1", resolved: 18, reviewed: 12 },
-  { created: 31, period: "S2", resolved: 22, reviewed: 16 },
-  { created: 28, period: "S3", resolved: 26, reviewed: 21 },
-  { created: 36, period: "S4", resolved: 32, reviewed: 24 },
-  { created: 42, period: "S5", resolved: 35, reviewed: 29 },
-  { created: 39, period: "S6", resolved: 37, reviewed: 31 }
 ];
 
 export const starterSettingsFixture = {

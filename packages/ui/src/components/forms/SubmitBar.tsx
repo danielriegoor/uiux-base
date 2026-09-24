@@ -20,7 +20,7 @@ export function SubmitBar({
   return (
     <div
       className={cn(
-        "flex flex-col-reverse gap-2 border-t border-slate-200 pt-4 sm:flex-row sm:items-center sm:justify-between",
+        "flex flex-col-reverse gap-2 border-t border-[var(--ui-border-default)] pt-4 sm:flex-row sm:items-center sm:justify-between",
         className
       )}
     >

@@ -25,18 +25,18 @@ export function FieldGroup({
 
   return (
     <div className={cn("grid gap-2", className)}>
-      <label className="text-sm font-medium text-slate-800" htmlFor={htmlFor}>
+      <label className="text-sm font-medium text-[var(--ui-text-body)]" htmlFor={htmlFor}>
         {label}
-        {required ? <span className="text-red-600"> *</span> : null}
+        {required ? <span className="text-[var(--ui-danger-solid)]"> *</span> : null}
       </label>
       {children}
       {hint ? (
-        <p className="text-xs leading-5 text-slate-500" id={hintId}>
+        <p className="text-xs leading-5 text-[var(--ui-text-muted)]" id={hintId}>
           {hint}
         </p>
       ) : null}
       {error ? (
-        <p className="text-xs leading-5 text-red-600" role="alert">
+        <p className="text-xs leading-5 text-[var(--ui-danger-solid)]" role="alert">
           {error}
         </p>
       ) : null}

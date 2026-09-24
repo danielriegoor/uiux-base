@@ -9,13 +9,9 @@ import {
   WorkspaceStateNotice,
   createAppMetadata,
   createRouteNav,
-  type NavigationItemInput
-} from "@uiux-base/app-kit";
-import { workspaceConfig } from "@uiux-base/config";
-import {
+  type NavigationItemInput,
   BlockedState,
   Button,
-  ChartPanel,
   Checkbox,
   DataTable,
   Dialog,
@@ -57,7 +53,8 @@ import {
   toast,
   type DataTableProps,
   type StatusBadgeStatus
-} from "@uiux-base/ui";
+} from "uiux-base";
+import { workspaceConfig } from "@uiux-base/config";
 import {
   BrowserRouter,
   Link,
@@ -67,7 +64,6 @@ import {
   useLocation
 } from "react-router-dom";
 import {
-  demoChartData,
   demoMetrics,
   demoProjects,
   type DemoProject
@@ -83,7 +79,6 @@ const navItems: NavigationItemInput[] = [
   { href: "/components/forms", label: "Forms" },
   { href: "/components/feedback", label: "Feedback" },
   { href: "/components/data-table", label: "Data table" },
-  { href: "/components/charts", label: "Charts" },
   { href: "/patterns/dashboard-shell", label: "Dashboard shell" },
   { href: "/patterns/states", label: "States" }
 ];
@@ -303,42 +298,6 @@ function DataTablePage() {
   );
 }
 
-function ChartsPage() {
-  return (
-    <DashboardContent
-      description="Graficos de area, linha e barras com series textuais acessiveis."
-      title="Charts"
-    >
-      <div className="grid min-w-0 gap-4 xl:grid-cols-2">
-        <ChartPanel
-          ariaLabel="Grafico de metricas genericas"
-          data={demoChartData}
-          description="Series ficticias de usuarios, projetos e eventos."
-          series={[
-            { key: "users", label: "Usuarios" },
-            { key: "projects", label: "Projetos" },
-            { key: "events", label: "Eventos" }
-          ]}
-          title="Metricas por periodo"
-          type="area"
-          xAxisKey="period"
-        />
-        <ChartPanel
-          data={demoChartData}
-          description="Mesmo dataset em barras para comparar densidade visual."
-          series={[
-            { key: "projects", label: "Projetos" },
-            { key: "events", label: "Eventos" }
-          ]}
-          title="Comparativo"
-          type="bar"
-          xAxisKey="period"
-        />
-      </div>
-    </DashboardContent>
-  );
-}
-
 function DashboardShellPage() {
   return (
     <DashboardContent
@@ -349,7 +308,7 @@ function DashboardShellPage() {
         <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
           <p className="text-sm font-medium text-slate-500">Package</p>
           <h2 className="mt-2 text-lg font-semibold text-slate-950">
-            @uiux-base/app-kit
+            uiux-base-app-kit
           </h2>
           <p className="mt-2 text-sm leading-6 text-slate-600">
             Shell, navegacao e status bar ficam fora de qualquer dominio.
@@ -409,6 +368,7 @@ function DemoShell() {
 
   return (
     <DashboardShell
+      mobileBrand="uiux-base demo"
       sidebar={
         <Sidebar
           brand="uiux-base demo"
@@ -424,8 +384,8 @@ function DemoShell() {
         <StatusBar
           items={[
             { label: "App", value: appMetadata.packageName },
-            { label: "UI", tone: "success", value: "@uiux-base/ui" },
-            { label: "App kit", value: "@uiux-base/app-kit" }
+            { label: "Package", tone: "success", value: "uiux-base" },
+            { label: "App kit", value: "uiux-base-app-kit" }
           ]}
         />
       }
@@ -443,7 +403,6 @@ function DemoShell() {
         <Route element={<FormsPage />} path="/components/forms" />
         <Route element={<FeedbackPage />} path="/components/feedback" />
         <Route element={<DataTablePage />} path="/components/data-table" />
-        <Route element={<ChartsPage />} path="/components/charts" />
         <Route element={<DashboardShellPage />} path="/patterns/dashboard-shell" />
         <Route element={<StatesPage />} path="/patterns/states" />
         <Route element={<Navigate replace to="/components" />} path="*" />

@@ -1,5 +1,7 @@
 # PRD 0005 - Starter e Demo Apps
 
+> Historico da fundacao. O escopo vigente esta em `0007-reset-mvp-npm.md`.
+
 **Status:** Proposto
 **Depende de:** PRDs 0001-0004
 

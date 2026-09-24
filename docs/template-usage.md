@@ -1,114 +1,90 @@
-# Uso do template
+# Uso do template e do pacote
 
-Este repo e um template privado para iniciar apps React/Vite com shell, componentes,
-fixtures locais, testes e documentacao de QA. Ele deve continuar neutro: sem dados
-reais, segredos, endpoints privados, regras de produto especifico ou integracoes
-reais por padrao.
+O `uiux-base` pode ser adotado de duas formas independentes.
 
-## Criar um novo repo pelo GitHub
-
-1. Abra o repo `danielriegoor/uiux-base` no GitHub.
-2. Use `Use this template` e escolha `Create a new repository`.
-3. Defina owner, nome e visibilidade do novo projeto.
-4. Clone o novo repo.
-5. Rode `pnpm install`.
-6. Rode `pnpm lint`, `pnpm test` e `pnpm build` antes da primeira mudanca.
-
-O repo de origem deve ser marcado como `Template repository` em `Settings` depois
-que CI, docs e smoke visual estiverem verdes.
-
-## Rodar localmente
-
-Na raiz do repo:
+## 1. Instalar a biblioteca em um app existente
 
 ```bash
-pnpm install
-pnpm lint
-pnpm test
-pnpm build
+npm install uiux-base
 ```
 
-Apps locais:
+No bootstrap React:
+
+```tsx
+import "uiux-base/styles.css";
+```
+
+Nos componentes:
+
+```tsx
+import {
+  Button,
+  DashboardContent,
+  DashboardShell,
+  Sidebar,
+  type NavigationItem
+} from "uiux-base";
+```
+
+O CSS ja esta compilado. Nao adicione o `src` deste package ao scan do Tailwind.
+React 18 e React DOM 18 devem existir no app consumidor.
+
+### Personalizar a marca
+
+Sobrescreva tokens no CSS do produto:
+
+```css
+:root {
+  --ui-accent-solid: hsl(221 83% 53%);
+  --ui-accent-hover: hsl(224 76% 48%);
+  --ui-ring: hsl(221 83% 53%);
+}
+```
+
+Para tema escuro, use `data-ui-theme="dark"` ou a classe `dark` em um ancestral.
+
+## 2. Criar um repo a partir do GitHub Template
+
+Use o botao `Use this template` em
+`https://github.com/danielriegoor/uiux-base`. Depois:
 
 ```bash
-pnpm --filter starter dev
-pnpm --filter demo dev
+npm ci
+npm run check
+npm run dev --workspace starter
 ```
 
-Por padrao:
+Troque fixtures por dados do seu produto dentro do app criado. O package visual
+nao deve receber endpoints, tokens ou regras de negocio.
 
-- `apps/starter` roda em `http://localhost:5173`.
-- `apps/demo` roda em `http://localhost:5174`.
+## Ownership no produto consumidor
 
-## Renomear app e packages
+- `pages`: rota, permissao, carregamento e composicao;
+- `features/<dominio>`: UI, hooks e helpers do fluxo;
+- `components`: visual compartilhado do produto, sem API sensivel;
+- `services`: cliente HTTP e contratos externos do produto;
+- `styles`: CSS Modules locais e overrides de tokens;
+- testes: proximos do comportamento.
 
-Ao criar um projeto a partir do template, renomeie apenas o que pertence ao novo
-produto. Preserve a separacao entre apps executaveis e packages reutilizaveis.
+Use `React.lazy` + `Suspense` para paginas ou features pesadas. Skeleton e apenas
+o fallback visual; a divisao de codigo vem do import dinamico.
 
-Checklist recomendado:
+## Contratos no MVP
 
-- Troque o nome raiz em `package.json`.
-- Troque `name` em `apps/starter/package.json` se o app base virar produto.
-- Atualize os aliases `@uiux-base/*` em `package.json`, imports e exports se o
-  novo repo precisar de outro escopo.
-- Ajuste `workspaceConfig` em `packages/config/src/index.ts`.
-- Atualize os textos de marca em `apps/starter/src/App.tsx`.
-- Atualize `README.md`, `AGENTS.md` e docs do novo repo.
-- Rode `rg "@uiux-base|uiux-base|starter|demo"` para revisar residuos esperados.
-- Rode `pnpm lint`, `pnpm test` e `pnpm build`.
+Crie um tipo local quando ele reduz ambiguidade real. Adicione um schema de
+runtime somente em uma fronteira nao confiavel, por exemplo resposta externa,
+storage ou formulario complexo. Nao replique todos os modelos do backend no
+frontend e nao introduza repository pattern por convencao.
 
-Nao renomeie packages compartilhados para nomes de dominio quando eles ainda
-forem componentes genericos.
+## Publicacao npm
 
-## Trocar fixtures por API real
+Os pacotes publicos sao publicados nesta ordem:
 
-Os apps usam fixtures para manter o template executavel sem backend. Para conectar
-um produto real:
+```bash
+npm run check
+npm publish --workspace uiux-base-app-kit --access public
+npm publish --workspace uiux-base --access public
+```
 
-1. Crie uma camada local no app consumidor, por exemplo `apps/starter/src/services`.
-2. Busque dados reais nessa camada, nunca em `packages/ui`.
-3. Mapeie a resposta externa para tipos genericos usados pela tela.
-4. Mantenha estados explicitos de loading, empty, error, success e blocked.
-5. Preserve labels, roles e feedback acessivel.
-6. Remova fixtures somente depois de cobrir sucesso, vazio e erro com testes.
-
-Detalhes e exemplo de adaptador ficam em `docs/fixtures-para-api-real.md`.
-
-## O que cada app entrega
-
-`apps/starter` e a base para novos produtos:
-
-- shell responsivo;
-- rotas de dashboard, overview, records, analytics e settings;
-- indicadores, tabela, grafico, formulario e estados;
-- fixtures locais substituiveis.
-
-`apps/demo` e a vitrine tecnica:
-
-- primitives e estados do pacote UI;
-- forms, tabela, graficos e dashboard shell;
-- rotas dedicadas para validar componentes isolados.
-
-## Validacao antes de reutilizar
-
-Antes de usar o template como base de um projeto novo:
-
-- `pnpm lint`
-- `pnpm test`
-- `pnpm build`
-- smoke visual de starter e demo em 375px, 768px, 1024px e desktop largo;
-- busca textual por nomes privados, provedores reais, endpoints e termos de
-  dominio externo;
-- `gh run list` para confirmar o estado recente do CI.
-
-## Marcar como Template repository
-
-No GitHub:
-
-1. Abra `Settings` do repo.
-2. Em `General`, localize `Template repository`.
-3. Marque a opcao.
-4. Mantenha a visibilidade privada enquanto o template for de uso pessoal.
-5. Salve a alteracao.
-
-Depois disso, futuros projetos podem nascer pelo botao `Use this template`.
+O segundo depende da mesma versao publicada do app-kit. A verificacao final e
+feita instalando `uiux-base` em um diretorio temporario limpo.

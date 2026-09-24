@@ -22,19 +22,19 @@ export function Topbar({
   return (
     <header
       className={cx(
-        "box-border flex min-w-0 flex-col gap-4 border-b border-slate-200 bg-white px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8",
+        "box-border flex min-w-0 flex-col gap-4 border-b border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8",
         className
       )}
     >
       <div className="min-w-0 space-y-1">
         {eyebrow ? (
-          <div className="text-xs font-semibold uppercase text-slate-500">
+          <div className="text-xs font-semibold uppercase text-[var(--ui-text-muted)]">
             {eyebrow}
           </div>
         ) : null}
-        <p className="text-lg font-semibold leading-7 text-slate-950">{title}</p>
+        <p className="text-lg font-semibold leading-7 text-[var(--ui-text-strong)]">{title}</p>
         {description ? (
-          <p className="max-w-3xl text-sm leading-6 text-slate-600">{description}</p>
+          <p className="max-w-3xl text-sm leading-6 text-[var(--ui-text-muted)]">{description}</p>
         ) : null}
       </div>
       {actions ? (

@@ -11,11 +11,6 @@ export const appBuildOptions = {
             priority: 30
           },
           {
-            name: "vendor-charts",
-            test: /node_modules[\\/](recharts|victory-vendor|d3-[^\\/]+)[\\/]/,
-            priority: 25
-          },
-          {
             name: "vendor-table",
             test: /node_modules[\\/]@tanstack[\\/](react-table|table-core)[\\/]/,
             priority: 25

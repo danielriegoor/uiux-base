@@ -16,16 +16,16 @@ export function LoadingState({
     <section
       aria-live="polite"
       className={cn(
-        "flex items-center gap-3 rounded-lg border border-slate-200 bg-white p-4 text-slate-700",
+        "flex items-center gap-3 rounded-lg border border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] p-4 text-[var(--ui-text-body)]",
         className
       )}
       role="status"
     >
       <LoaderCircle aria-hidden="true" className="h-5 w-5 animate-spin" />
       <div className="space-y-1">
-        <h2 className="text-sm font-semibold text-slate-950">{title}</h2>
+        <h2 className="text-sm font-semibold text-[var(--ui-text-strong)]">{title}</h2>
         {description ? (
-          <p className="text-sm leading-6 text-slate-600">{description}</p>
+          <p className="text-sm leading-6 text-[var(--ui-text-muted)]">{description}</p>
         ) : null}
       </div>
     </section>

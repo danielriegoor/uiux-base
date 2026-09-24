@@ -9,8 +9,7 @@ export default tseslint.config(
     ignores: [
       "**/dist/**",
       "**/coverage/**",
-      "**/node_modules/**",
-      "pnpm-lock.yaml"
+      "**/node_modules/**"
     ]
   },
   js.configs.recommended,

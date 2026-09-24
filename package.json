@@ -1,15 +1,27 @@
 {
-  "name": "uiux-base",
+  "name": "uiux-base-workspace",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@11.7.0",
+  "packageManager": "npm@11.15.0",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "lint": "eslint . --max-warnings=0",
-    "test": "pnpm -r --if-present test",
-    "build": "pnpm -r --if-present build",
-    "typecheck": "pnpm -r --if-present typecheck",
-    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm build"
+    "build:packages": "npm run build --workspace uiux-base-app-kit && npm run build --workspace uiux-base && npm run build --workspace @uiux-base/config",
+    "build:apps": "npm run build --workspace starter && npm run build --workspace demo",
+    "build": "npm run build:packages && npm run build:apps",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test:workspaces": "npm run test --workspaces --if-present",
+    "test": "npm run build:packages && npm run test:workspaces",
+    "check:package": "node scripts/check-package.mjs",
+    "check": "npm run lint && npm run build:packages && npm run typecheck && npm run test:workspaces && npm run build:apps && npm run check:package",
+    "publish:packages": "npm publish --workspace uiux-base-app-kit --access public && npm publish --workspace uiux-base --access public"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -26,6 +38,8 @@
     "eslint-plugin-react-refresh": "^0.5.3",
     "globals": "^17.7.0",
     "jsdom": "^29.1.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "tailwindcss": "^4.3.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.62.0",

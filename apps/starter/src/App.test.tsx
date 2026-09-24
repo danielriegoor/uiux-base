@@ -27,7 +27,7 @@ describe("starter app", () => {
     ).toBeInTheDocument();
   });
 
-  it("navega por records, analytics e settings com dados genericos", async () => {
+  it("navega por records e settings com dados genericos", async () => {
     window.history.pushState({}, "", "/dashboard");
 
     render(<App />);
@@ -36,12 +36,6 @@ describe("starter app", () => {
     expect(screen.getByRole("heading", { name: "Records" })).toBeInTheDocument();
     expect(
       screen.getByRole("table", { name: "Registros genericos" })
-    ).toBeInTheDocument();
-
-    await userEvent.click(screen.getByRole("link", { name: "Analytics" }));
-    expect(screen.getByRole("heading", { name: "Analytics" })).toBeInTheDocument();
-    expect(
-      screen.getByRole("img", { name: "Serie temporal generica" })
     ).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole("link", { name: "Settings" }));

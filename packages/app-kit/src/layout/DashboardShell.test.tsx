@@ -1,4 +1,5 @@
 import { render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import {
   DashboardContent,
@@ -60,5 +61,46 @@ describe("DashboardShell", () => {
       "aria-current",
       "page"
     );
+  });
+
+  it("abre e fecha a navegacao mobile com foco e nomes acessiveis", async () => {
+    const user = userEvent.setup();
+
+    render(
+      <DashboardShell
+        mobileBrand="uiux-base"
+        sidebar={
+          <Sidebar
+            brand="uiux-base"
+            items={createRouteNav([{ href: "/", label: "Inicio" }], "/")}
+          />
+        }
+      >
+        <p>Conteudo principal</p>
+      </DashboardShell>
+    );
+
+    const trigger = screen.getByRole("button", {
+      name: "Abrir navegacao principal"
+    });
+    await user.click(trigger);
+
+    const dialog = screen.getByRole("dialog", { name: "Navegacao principal" });
+    expect(dialog).toBeInTheDocument();
+    expect(within(dialog).getByRole("link", { name: "Inicio" })).toHaveAttribute(
+      "aria-current",
+      "page"
+    );
+
+    expect(
+      within(dialog).getByRole("button", { name: "Fechar navegacao principal" })
+    ).toHaveFocus();
+
+    await user.keyboard("{Escape}");
+
+    expect(
+      screen.queryByRole("dialog", { name: "Navegacao principal" })
+    ).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
   });
 });

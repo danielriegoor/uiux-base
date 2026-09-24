@@ -1,5 +1,7 @@
 # PRD 0001 - Fundacao do Repo Template
 
+> Historico da fundacao. O escopo vigente esta em `0007-reset-mvp-npm.md`.
+
 **Status:** Proposto
 **Depende de:** PRD 0000
 

@@ -1,35 +1,21 @@
-# @uiux-base/ui
+# uiux-base
 
-Pacote neutro de design system para apps React/Vite do workspace.
+Pacote npm publico de UI/UX para React 18. Inclui primitives acessiveis,
+componentes de feedback, formularios, data table e o app shell exportado pelo
+`uiux-base-app-kit`.
 
-## Uso
-
-Importe o CSS global uma vez no app consumidor, antes dos estilos locais:
-
-```css
-@import "tailwindcss";
-@import "@uiux-base/ui/styles/globals.css";
-
-@source "../../../packages/ui/src";
+```bash
+npm install uiux-base
 ```
-
-Use os componentes pelo barrel publico:
 
 ```tsx
-import { Button, Dialog, KpiCard, StatusBadge } from "@uiux-base/ui";
+import "uiux-base/styles.css";
+import { Button, DashboardShell, KpiCard, StatusBadge } from "uiux-base";
 ```
 
-## Conteudo
+O CSS e precompilado: o consumidor nao precisa apontar o Tailwind para o codigo
+fonte do pacote. Para tema escuro, aplique `data-ui-theme="dark"` ou a classe
+`dark` em um ancestral. Tokens `--ui-*` podem ser sobrescritos pelo produto.
 
-- `cn`, tokens iniciais de cor, espacamento e graficos.
-- Primitives: Button, Input, Textarea, Select, Checkbox, Dialog, DropdownMenu, Tabs, Tooltip e Skeleton.
-- Estados: EmptyState, ErrorState, LoadingState, BlockedState e ToastProvider.
-- Formularios: FieldGroup, FormSection e SubmitBar.
-- Dados simples: KpiCard e StatusBadge.
-
-## Regras
-
-- O pacote nao contem regra de negocio, API real, auth, billing ou dados de produto.
-- Componentes interativos devem manter nome acessivel e navegacao por teclado.
-- Estados dinamicos usam `role="status"` para loading e `role="alert"` para erro.
-- Botao icon-only deve receber `aria-label` no consumo.
+O pacote nao contem regra de negocio, API, auth, billing, graficos ou schemas de
+contrato. React e React DOM sao peer dependencies.

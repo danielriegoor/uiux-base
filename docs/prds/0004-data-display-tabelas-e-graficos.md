@@ -1,5 +1,7 @@
 # PRD 0004 - Data Display, Tabelas e Graficos
 
+> Supersedida. Graficos e Recharts foram removidos do MVP por `0007-reset-mvp-npm.md`.
+
 **Status:** Proposto
 **Depende de:** PRDs 0001, 0002 e 0003
 

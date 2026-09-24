@@ -1,38 +1,108 @@
 :root {
   --ui-surface-canvas: hsl(210 24% 98%);
   --ui-surface-panel: hsl(0 0% 100%);
+  --ui-surface-subtle: hsl(210 24% 97%);
   --ui-surface-muted: hsl(210 20% 96%);
   --ui-text-strong: hsl(222 47% 11%);
   --ui-text-body: hsl(215 25% 27%);
   --ui-text-muted: hsl(215 16% 47%);
+  --ui-text-subtle: hsl(215 14% 58%);
   --ui-border-default: hsl(214 32% 91%);
+  --ui-border-strong: hsl(214 24% 82%);
   --ui-ring: hsl(217 91% 50%);
+  --ui-accent-surface: hsl(214 100% 97%);
+  --ui-accent-border: hsl(213 97% 87%);
+  --ui-accent-text: hsl(224 76% 35%);
+  --ui-accent-solid: hsl(222 47% 11%);
+  --ui-accent-hover: hsl(217 33% 17%);
+  --ui-on-accent: hsl(0 0% 100%);
+  --ui-success-surface: hsl(152 81% 96%);
+  --ui-success-border: hsl(149 80% 80%);
+  --ui-success-text: hsl(155 100% 24%);
+  --ui-success-solid: hsl(160 84% 39%);
+  --ui-warning-surface: hsl(48 100% 96%);
+  --ui-warning-border: hsl(48 96% 76%);
+  --ui-warning-text: hsl(32 81% 29%);
+  --ui-warning-solid: hsl(38 92% 50%);
+  --ui-danger-surface: hsl(0 86% 97%);
+  --ui-danger-border: hsl(0 94% 82%);
+  --ui-danger-text: hsl(0 74% 35%);
+  --ui-danger-solid: hsl(0 72% 51%);
+  --ui-danger-hover: hsl(0 74% 42%);
+  --ui-info-surface: hsl(214 100% 97%);
+  --ui-info-border: hsl(213 97% 87%);
+  --ui-info-text: hsl(224 76% 35%);
+  --ui-overlay: hsl(222 47% 11% / 55%);
   --ui-radius-sm: 0.25rem;
   --ui-radius-md: 0.375rem;
   --ui-radius-lg: 0.5rem;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
   color-scheme: light;
 }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  background: var(--ui-surface-canvas);
-  color: var(--ui-text-body);
-  font-family:
-    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
+[data-ui-theme="dark"],
+.dark {
+  --ui-surface-canvas: hsl(222 47% 7%);
+  --ui-surface-panel: hsl(222 38% 11%);
+  --ui-surface-subtle: hsl(220 30% 14%);
+  --ui-surface-muted: hsl(217 28% 17%);
+  --ui-text-strong: hsl(210 40% 98%);
+  --ui-text-body: hsl(214 32% 91%);
+  --ui-text-muted: hsl(215 20% 65%);
+  --ui-text-subtle: hsl(215 16% 55%);
+  --ui-border-default: hsl(217 24% 24%);
+  --ui-border-strong: hsl(215 20% 34%);
+  --ui-ring: hsl(213 94% 68%);
+  --ui-accent-surface: hsl(224 55% 17%);
+  --ui-accent-border: hsl(216 55% 32%);
+  --ui-accent-text: hsl(213 94% 80%);
+  --ui-accent-solid: hsl(213 94% 68%);
+  --ui-accent-hover: hsl(213 97% 76%);
+  --ui-on-accent: hsl(222 47% 11%);
+  --ui-success-surface: hsl(157 45% 13%);
+  --ui-success-border: hsl(155 45% 28%);
+  --ui-success-text: hsl(151 60% 74%);
+  --ui-success-solid: hsl(158 64% 52%);
+  --ui-warning-surface: hsl(35 53% 14%);
+  --ui-warning-border: hsl(39 53% 30%);
+  --ui-warning-text: hsl(48 96% 76%);
+  --ui-warning-solid: hsl(43 96% 56%);
+  --ui-danger-surface: hsl(0 46% 15%);
+  --ui-danger-border: hsl(0 48% 31%);
+  --ui-danger-text: hsl(0 94% 82%);
+  --ui-danger-solid: hsl(0 84% 66%);
+  --ui-danger-hover: hsl(0 91% 71%);
+  --ui-info-surface: hsl(224 55% 17%);
+  --ui-info-border: hsl(216 55% 32%);
+  --ui-info-text: hsl(213 94% 80%);
+  --ui-overlay: hsl(222 47% 4% / 72%);
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:where(button, [href], input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--ui-ring);
+  outline-offset: 2px;
 }
 
 button,
 input,
-textarea,
-select {
+select,
+textarea {
   font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

@@ -18,19 +18,19 @@ const guardDefaults: Record<
     description: "Esta area depende de uma configuracao antes de continuar.",
     role: "alert",
     title: "Acesso bloqueado",
-    wrapper: "border-amber-200 bg-amber-50 text-amber-950"
+    wrapper: "border-[var(--ui-warning-border)] bg-[var(--ui-warning-surface)] text-[var(--ui-warning-text)]"
   },
   denied: {
     description: "Voce nao tem permissao para visualizar esta area.",
     role: "alert",
     title: "Acesso negado",
-    wrapper: "border-red-200 bg-red-50 text-red-950"
+    wrapper: "border-[var(--ui-danger-border)] bg-[var(--ui-danger-surface)] text-[var(--ui-danger-text)]"
   },
   loading: {
     description: "Aguarde enquanto validamos as condicoes de entrada.",
     role: "status",
     title: "Verificando acesso",
-    wrapper: "border-blue-200 bg-blue-50 text-blue-950"
+    wrapper: "border-[var(--ui-info-border)] bg-[var(--ui-info-surface)] text-[var(--ui-info-text)]"
   }
 };
 

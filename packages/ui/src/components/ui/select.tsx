@@ -13,7 +13,7 @@ export const SelectTrigger = forwardRef<
 >(({ children, className, ...props }, ref) => (
   <SelectPrimitive.Trigger
     className={cn(
-      "flex h-10 w-full items-center justify-between gap-2 rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-950 shadow-sm transition-colors placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
+      "flex h-11 w-full items-center justify-between gap-2 rounded-md border border-[var(--ui-border-strong)] bg-[var(--ui-surface-panel)] px-3 py-2 text-sm text-[var(--ui-text-strong)] shadow-sm transition-colors placeholder:text-[var(--ui-text-subtle)] focus:outline-none focus:ring-2 focus:ring-[var(--ui-ring)] disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1",
       className
     )}
     ref={ref}
@@ -65,7 +65,7 @@ export const SelectContent = forwardRef<
   <SelectPrimitive.Portal>
     <SelectPrimitive.Content
       className={cn(
-        "relative z-50 max-h-96 min-w-32 overflow-hidden rounded-md border border-slate-200 bg-white text-slate-950 shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out",
+        "relative z-50 max-h-96 min-w-32 overflow-hidden rounded-md border border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] text-[var(--ui-text-strong)] shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out",
         position === "popper" &&
           "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
         className
@@ -96,7 +96,7 @@ export const SelectLabel = forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Label
-    className={cn("px-2 py-1.5 text-xs font-semibold text-slate-500", className)}
+    className={cn("px-2 py-1.5 text-xs font-semibold text-[var(--ui-text-muted)]", className)}
     ref={ref}
     {...props}
   />
@@ -110,7 +110,7 @@ export const SelectItem = forwardRef<
 >(({ children, className, ...props }, ref) => (
   <SelectPrimitive.Item
     className={cn(
-      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-slate-100 focus:text-slate-950 data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-[var(--ui-surface-muted)] focus:text-[var(--ui-text-strong)] data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
     ref={ref}
@@ -132,7 +132,7 @@ export const SelectSeparator = forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Separator
-    className={cn("-mx-1 my-1 h-px bg-slate-200", className)}
+    className={cn("-mx-1 my-1 h-px bg-[var(--ui-border-default)]", className)}
     ref={ref}
     {...props}
   />

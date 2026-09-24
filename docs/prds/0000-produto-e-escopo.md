@@ -1,5 +1,7 @@
 # PRD 0000 - Produto e Escopo do uiux-base
 
+> Historico da fundacao. O escopo vigente esta em `0007-reset-mvp-npm.md`.
+
 **Status:** Proposto
 **Repo alvo:** `github.com/danielriegoor/uiux-base`
 **Visibilidade inicial:** Privado

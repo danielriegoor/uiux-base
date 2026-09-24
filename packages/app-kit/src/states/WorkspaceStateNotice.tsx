@@ -18,25 +18,25 @@ const workspaceDefaults: Record<
     description: "Complete a configuracao necessaria para liberar este workspace.",
     role: "alert",
     title: "Workspace bloqueado",
-    wrapper: "border-amber-200 bg-amber-50 text-amber-950"
+    wrapper: "border-[var(--ui-warning-border)] bg-[var(--ui-warning-surface)] text-[var(--ui-warning-text)]"
   },
   empty: {
     description: "Crie o primeiro registro para iniciar o fluxo de trabalho.",
     role: "status",
     title: "Workspace vazio",
-    wrapper: "border-slate-200 bg-white text-slate-800"
+    wrapper: "border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] text-[var(--ui-text-body)]"
   },
   error: {
     description: "Nao foi possivel carregar o estado atual do workspace.",
     role: "alert",
     title: "Falha no workspace",
-    wrapper: "border-red-200 bg-red-50 text-red-950"
+    wrapper: "border-[var(--ui-danger-border)] bg-[var(--ui-danger-surface)] text-[var(--ui-danger-text)]"
   },
   loading: {
     description: "Aguarde enquanto preparamos os dados do workspace.",
     role: "status",
     title: "Carregando workspace",
-    wrapper: "border-blue-200 bg-blue-50 text-blue-950"
+    wrapper: "border-[var(--ui-info-border)] bg-[var(--ui-info-surface)] text-[var(--ui-info-text)]"
   }
 };
 

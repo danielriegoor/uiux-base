@@ -7,13 +7,9 @@ import {
   Topbar,
   createAppMetadata,
   createRouteNav,
-  type NavigationItemInput
-} from "@uiux-base/app-kit";
-import { workspaceConfig } from "@uiux-base/config";
-import {
+  type NavigationItemInput,
   BlockedState,
   Button,
-  ChartPanel,
   Checkbox,
   DataTable,
   EmptyState,
@@ -34,7 +30,8 @@ import {
   UiFoundationMark,
   type DataTableProps,
   type StatusBadgeStatus
-} from "@uiux-base/ui";
+} from "uiux-base";
+import { workspaceConfig } from "@uiux-base/config";
 import {
   BrowserRouter,
   Link,
@@ -50,7 +47,6 @@ import {
   projectFixtures,
   recordFixtures,
   starterSettingsFixture,
-  timeSeriesFixtures,
   userFixtures,
   type RecordFixture
 } from "./fixtures";
@@ -72,10 +68,6 @@ const navItems: NavigationItemInput[] = [
   {
     href: "/dashboard/records",
     label: "Records"
-  },
-  {
-    href: "/dashboard/analytics",
-    label: "Analytics"
   },
   {
     href: "/dashboard/settings",
@@ -155,21 +147,6 @@ function DashboardPage() {
           </div>
         </section>
 
-        <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1.15fr)_minmax(300px,0.85fr)]">
-          <ChartPanel
-            ariaLabel="Serie temporal generica"
-            data={timeSeriesFixtures}
-            description="Serie ficticia para validar graficos e responsividade do starter."
-            series={[
-              { key: "created", label: "Criados" },
-              { key: "resolved", label: "Resolvidos" },
-              { key: "reviewed", label: "Revisados" }
-            ]}
-            title="Fluxo semanal"
-            type="area"
-            xAxisKey="period"
-          />
-
           <section className="min-w-0 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
             <h2 className="text-lg font-semibold text-slate-950">
               Estados do template
@@ -193,7 +170,6 @@ function DashboardPage() {
               />
             </div>
           </section>
-        </div>
       </div>
     </DashboardContent>
   );
@@ -280,54 +256,6 @@ function RecordsPage() {
   );
 }
 
-function AnalyticsPage() {
-  return (
-    <DashboardContent
-      description="Exemplo de grafico temporal com legenda textual e sumario acessivel."
-      title="Analytics"
-    >
-      <div className="grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(280px,0.45fr)]">
-        <ChartPanel
-          ariaLabel="Serie temporal generica"
-          data={timeSeriesFixtures}
-          description="Serie local com criados, resolvidos e revisados."
-          series={[
-            { key: "created", label: "Criados" },
-            { key: "resolved", label: "Resolvidos" },
-            { key: "reviewed", label: "Revisados" }
-          ]}
-          title="Serie temporal"
-          type="line"
-          xAxisKey="period"
-        />
-        <section className="min-w-0 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-          <h2 className="text-lg font-semibold text-slate-950">Eventos</h2>
-          <ul className="mt-4 space-y-3">
-            {eventFixtures.map((event) => (
-              <li
-                className="flex min-w-0 items-center justify-between gap-3 rounded-md border border-slate-200 p-3"
-                key={event.id}
-              >
-                <span className="min-w-0">
-                  <span className="block truncate text-sm font-medium text-slate-900">
-                    {event.title}
-                  </span>
-                  <span className="text-xs text-slate-500">
-                    {event.category} - {event.period}
-                  </span>
-                </span>
-                <span className="text-sm font-semibold tabular-nums text-slate-950">
-                  {event.count}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
-    </DashboardContent>
-  );
-}
-
 function SettingsPage() {
   return (
     <DashboardContent
@@ -395,6 +323,7 @@ function StarterShell() {
 
   return (
     <DashboardShell
+      mobileBrand="uiux-base starter"
       sidebar={
         <Sidebar
           brand="uiux-base starter"
@@ -426,7 +355,7 @@ function StarterShell() {
             </AppStateBoundary>
           }
           description="Template neutro para iniciar produtos internos com rotas, states e fixtures substituiveis."
-          eyebrow="@uiux-base/app-kit"
+          eyebrow="uiux-base"
           title="Starter app"
         />
       }
@@ -436,7 +365,6 @@ function StarterShell() {
         <Route element={<DashboardPage />} path="/dashboard" />
         <Route element={<OverviewPage />} path="/dashboard/overview" />
         <Route element={<RecordsPage />} path="/dashboard/records" />
-        <Route element={<AnalyticsPage />} path="/dashboard/analytics" />
         <Route element={<SettingsPage />} path="/dashboard/settings" />
         <Route element={<Navigate replace to="/dashboard" />} path="*" />
       </Routes>

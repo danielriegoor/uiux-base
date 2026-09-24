@@ -1,5 +1,7 @@
 # PRD 0006 - QA, Readiness e Documentacao do Template
 
+> Historico da fundacao. O escopo vigente esta em `0007-reset-mvp-npm.md`.
+
 **Status:** Proposto
 **Depende de:** PRDs 0001-0005
 
