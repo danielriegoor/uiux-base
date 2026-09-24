@@ -8,7 +8,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(import.meta.dirname, "src/bundle.ts"),
-      cssFileName: "uiux-base",
+      cssFileName: "components",
       formats: ["es"],
       fileName: "index"
     },

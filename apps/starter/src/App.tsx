@@ -125,12 +125,12 @@ function DashboardPage() {
         <section aria-labelledby="starter-indicators" className="space-y-3">
           <div className="flex min-w-0 flex-col gap-1">
             <h2
-              className="text-sm font-semibold uppercase text-slate-500"
+              className="text-sm font-semibold uppercase text-[var(--ui-text-muted)]"
               id="starter-indicators"
             >
               Indicadores
             </h2>
-            <p className="text-sm leading-6 text-slate-600">
+            <p className="text-sm leading-6 text-[var(--ui-text-body)]">
               Cards numericos reutilizando fixtures locais, sem backend real.
             </p>
           </div>
@@ -147,8 +147,8 @@ function DashboardPage() {
           </div>
         </section>
 
-          <section className="min-w-0 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-            <h2 className="text-lg font-semibold text-slate-950">
+          <section className="min-w-0 rounded-lg border border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] p-4 shadow-sm">
+            <h2 className="text-lg font-semibold text-[var(--ui-text-strong)]">
               Estados do template
             </h2>
             <div className="mt-4 grid gap-3">
@@ -182,45 +182,45 @@ function OverviewPage() {
       title="Overview"
     >
       <div className="grid min-w-0 gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(260px,0.55fr)]">
-        <section className="min-w-0 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-          <h2 className="text-lg font-semibold text-slate-950">
+        <section className="min-w-0 rounded-lg border border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] p-4 shadow-sm">
+          <h2 className="text-lg font-semibold text-[var(--ui-text-strong)]">
             Colecoes genericas
           </h2>
           <dl className="mt-4 grid gap-3 sm:grid-cols-2">
-            <div className="rounded-md border border-slate-200 p-3">
-              <dt className="text-sm text-slate-500">Usuarios</dt>
-              <dd className="text-xl font-semibold text-slate-950">
+            <div className="rounded-md border border-[var(--ui-border-default)] p-3">
+              <dt className="text-sm text-[var(--ui-text-muted)]">Usuarios</dt>
+              <dd className="text-xl font-semibold text-[var(--ui-text-strong)]">
                 {userFixtures.length}
               </dd>
             </div>
-            <div className="rounded-md border border-slate-200 p-3">
-              <dt className="text-sm text-slate-500">Organizacoes</dt>
-              <dd className="text-xl font-semibold text-slate-950">
+            <div className="rounded-md border border-[var(--ui-border-default)] p-3">
+              <dt className="text-sm text-[var(--ui-text-muted)]">Organizacoes</dt>
+              <dd className="text-xl font-semibold text-[var(--ui-text-strong)]">
                 {organizationFixtures.length}
               </dd>
             </div>
-            <div className="rounded-md border border-slate-200 p-3">
-              <dt className="text-sm text-slate-500">Projetos</dt>
-              <dd className="text-xl font-semibold text-slate-950">
+            <div className="rounded-md border border-[var(--ui-border-default)] p-3">
+              <dt className="text-sm text-[var(--ui-text-muted)]">Projetos</dt>
+              <dd className="text-xl font-semibold text-[var(--ui-text-strong)]">
                 {projectFixtures.length}
               </dd>
             </div>
-            <div className="rounded-md border border-slate-200 p-3">
-              <dt className="text-sm text-slate-500">Eventos</dt>
-              <dd className="text-xl font-semibold text-slate-950">
+            <div className="rounded-md border border-[var(--ui-border-default)] p-3">
+              <dt className="text-sm text-[var(--ui-text-muted)]">Eventos</dt>
+              <dd className="text-xl font-semibold text-[var(--ui-text-strong)]">
                 {eventFixtures.length}
               </dd>
             </div>
           </dl>
         </section>
 
-        <section className="min-w-0 rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-          <h2 className="text-lg font-semibold text-slate-950">Base ativa</h2>
+        <section className="min-w-0 rounded-lg border border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] p-4 shadow-sm">
+          <h2 className="text-lg font-semibold text-[var(--ui-text-strong)]">Base ativa</h2>
           <div className="mt-4 space-y-4">
             <UiFoundationMark />
-            <p className="text-sm leading-6 text-slate-600">
+            <p className="text-sm leading-6 text-[var(--ui-text-body)]">
               Para trocar fixtures por API real, siga{" "}
-              <code className="rounded bg-slate-100 px-1 py-0.5 text-xs">
+              <code className="rounded bg-[var(--ui-surface-muted)] px-1 py-0.5 text-xs">
                 docs/fixtures-para-api-real.md
               </code>
               .
@@ -307,7 +307,7 @@ function SettingsPage() {
             id="workspace-notes"
           />
         </FieldGroup>
-        <label className="flex min-h-11 items-center gap-2 text-sm text-slate-700">
+        <label className="flex min-h-11 items-center gap-2 text-sm text-[var(--ui-text-body)]">
           <Checkbox aria-label="Receber resumo semanal" defaultChecked />
           Receber resumo semanal deste workspace
         </label>

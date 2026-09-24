@@ -1,0 +1,15 @@
+.ui-status-dot {
+  background-color: var(--ui-text-subtle);
+}
+
+.ui-status-dot[data-ui-status-tone="success"] {
+  background-color: var(--ui-success-solid);
+}
+
+.ui-status-dot[data-ui-status-tone="warning"] {
+  background-color: var(--ui-warning-solid);
+}
+
+.ui-status-dot[data-ui-status-tone="danger"] {
+  background-color: var(--ui-danger-solid);
+}

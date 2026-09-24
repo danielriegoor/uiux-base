@@ -1,6 +1,6 @@
 # uiux-base
 
-Base publica e reutilizavel de UI/UX para apps React 18 + Vite. O pacote entrega
+Base publica e reutilizavel de UI/UX para apps React 18/19 + Vite. O pacote entrega
 componentes acessiveis, tokens visuais, estados de interface e um app shell
 responsivo sem carregar dominio, backend ou contratos de API.
 
@@ -25,13 +25,24 @@ import { Button, DashboardShell, EmptyState, Sidebar } from "uiux-base";
 O pacote `uiux-base-app-kit` e instalado de forma transitiva. O app consumidor
 nao precisa instala-lo diretamente.
 
+Para controle fino do CSS, substitua o import completo por entradas opt-in:
+
+```tsx
+import "uiux-base/tokens.css";
+import "uiux-base/components.css";
+import "uiux-base/reset.css"; // opcional: reset global e reduced motion
+```
+
+`styles.css` continua sendo o caminho recomendado no MVP e agrega as tres
+camadas na ordem correta.
+
 ## Escopo do MVP
 
 - primitives acessiveis baseadas em Radix UI;
 - formularios, feedback, KPI, status e tabela generica;
 - shell responsivo com sidebar desktop e drawer mobile;
 - tokens CSS com tema claro e escuro via `[data-ui-theme="dark"]` ou `.dark`;
-- React Router somente nos apps de exemplo;
+- React 18 e 19 como peers validados; React Router somente nos apps de exemplo;
 - Vitest, jsdom e Testing Library para testes comportamentais;
 - pacote ESM com tipos TypeScript e CSS compilado.
 
@@ -66,9 +77,20 @@ npm run dev --workspace starter
 npm run dev --workspace demo
 ```
 
-O gate `npm run check` executa lint, build dos packages, typecheck, testes,
-build dos apps e um smoke que empacota os dois pacotes e os instala em um
-consumidor temporario limpo.
+O gate `npm run check` executa lint, sincronismo dos tokens, build, typecheck,
+testes comportamentais e axe-core, build dos apps, `publint`, Are the Types
+Wrong e smokes dos tarballs em consumidores React 18 e React 19.
+
+Mudancas publicas usam Changesets:
+
+```bash
+npm run changeset
+npm run version:packages
+```
+
+A publicacao ocorre pelo workflow `publish.yml` ao publicar uma GitHub Release.
+Os dois packages usam trusted publishing OIDC, sem token npm persistente, e
+geram provenance automaticamente.
 
 ## Estrutura
 

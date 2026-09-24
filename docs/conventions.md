@@ -24,6 +24,8 @@ consumidor, nunca na biblioteca visual.
 ## Estilos
 
 - tokens globais usam o prefixo `--ui-`;
+- `packages/ui/src/tokens/theme.json` e a fonte unica dos tokens;
+- `tokens.css` e `theme.generated.ts` sao gerados por `npm run tokens:generate`;
 - componentes do package consomem tokens sem fixar a marca do produto;
 - CSS Modules pertencem a paginas/features do consumidor;
 - Tailwind organiza composicao dos componentes da biblioteca;
@@ -42,7 +44,8 @@ consumidor, nunca na biblioteca visual.
 
 Mudanca observavel React/DOM segue RED, implementacao minima e GREEN. Priorize
 `getByRole`, `getByLabelText` e `userEvent`. Evite snapshots grandes e asserts de
-classe sem valor para o usuario.
+classe sem valor para o usuario. axe-core cobre somente composicoes
+representativas; contraste e responsividade continuam com verificacao humana.
 
 ```bash
 npm run lint

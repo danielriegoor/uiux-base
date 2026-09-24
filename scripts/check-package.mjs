@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
 import process from "node:process";
@@ -15,7 +15,14 @@ const packageDefinitions = [
   {
     directory: "packages/ui",
     name: "uiux-base",
-    requiredFiles: ["dist/index.js", "dist/index.d.ts", "dist/uiux-base.css"]
+    requiredFiles: [
+      "dist/index.js",
+      "dist/index.d.ts",
+      "dist/components.css",
+      "dist/reset.css",
+      "dist/uiux-base.css",
+      "dist/tokens.css"
+    ]
   }
 ];
 
@@ -45,6 +52,83 @@ function run(command, args, cwd = root) {
   return result.stdout.trim();
 }
 
+async function createConsumer(directory, tarballs, reactVersion, withTypeScript = false) {
+  await mkdir(directory, { recursive: true });
+  await writeFile(
+    join(directory, "package.json"),
+    JSON.stringify({ name: `uiux-base-react-${reactVersion}`, private: true }, null, 2)
+  );
+
+  const dependencies = [
+    `react@${reactVersion}`,
+    `react-dom@${reactVersion}`,
+    ...(withTypeScript
+      ? ["@types/react@18.3.31", "@types/react-dom@18.3.7"]
+      : []),
+    ...tarballs
+  ];
+
+  run(
+    "npm",
+    ["install", "--ignore-scripts", "--no-audit", "--no-fund", ...dependencies],
+    directory
+  );
+
+  await writeFile(
+    join(directory, "smoke.mjs"),
+    [
+      'import * as kit from "uiux-base";',
+      'if (typeof kit.Button !== "object" && typeof kit.Button !== "function") {',
+      '  throw new Error("Button nao foi exportado");',
+      '}',
+      'if (typeof kit.DashboardShell !== "function") {',
+      '  throw new Error("DashboardShell nao foi exportado");',
+      '}',
+      `console.log("package-smoke React ${reactVersion}: ok");`
+    ].join("\n")
+  );
+  run("node", ["smoke.mjs"], directory);
+
+  if (!withTypeScript) return;
+
+  await writeFile(
+    join(directory, "smoke.tsx"),
+    [
+      'import { Button, DashboardShell, type NavigationItem } from "uiux-base";',
+      'const items: NavigationItem[] = [{ id: "home", href: "/", isCurrent: false, label: "Home" }];',
+      "void items;",
+      "export const Smoke = () => (",
+      "  <DashboardShell sidebar={<nav />}><Button>Ok</Button></DashboardShell>",
+      ");"
+    ].join("\n")
+  );
+  await writeFile(
+    join(directory, "tsconfig.json"),
+    JSON.stringify(
+      {
+        compilerOptions: {
+          jsx: "react-jsx",
+          lib: ["ES2022", "DOM"],
+          module: "ESNext",
+          moduleResolution: "Bundler",
+          noEmit: true,
+          skipLibCheck: false,
+          strict: true,
+          target: "ES2022"
+        },
+        include: ["smoke.tsx"]
+      },
+      null,
+      2
+    )
+  );
+  run(
+    "node",
+    [join(root, "node_modules/typescript/bin/tsc"), "--project", "tsconfig.json"],
+    directory
+  );
+}
+
 const tempDirectory = await mkdtemp(join(tmpdir(), "uiux-base-package-"));
 
 try {
@@ -62,6 +146,13 @@ try {
     assert.equal(manifest.files[0], "dist");
     assert.equal(manifest.dependencies?.zod, undefined);
     assert.equal(manifest.dependencies?.recharts, undefined);
+
+    if (definition.name === "uiux-base") {
+      assert.equal(manifest.exports?.["./styles.css"], "./dist/uiux-base.css");
+      assert.equal(manifest.exports?.["./tokens.css"], "./dist/tokens.css");
+      assert.equal(manifest.exports?.["./reset.css"], "./dist/reset.css");
+      assert.equal(manifest.exports?.["./components.css"], "./dist/components.css");
+    }
 
     const output = run("npm", [
       "pack",
@@ -90,82 +181,35 @@ try {
     tarballs.push(join(tempDirectory, filename));
   }
 
-  await writeFile(
-    join(tempDirectory, "package.json"),
-    JSON.stringify({ name: "uiux-base-package-smoke", private: true }, null, 2)
-  );
+  const stylesDirectory = join(root, "packages/ui/dist");
+  const [tokens, reset, components, aggregate] = await Promise.all([
+    readFile(join(stylesDirectory, "tokens.css"), "utf8"),
+    readFile(join(stylesDirectory, "reset.css"), "utf8"),
+    readFile(join(stylesDirectory, "components.css"), "utf8"),
+    readFile(join(stylesDirectory, "uiux-base.css"), "utf8")
+  ]);
 
-  run(
-    "npm",
-    [
-      "install",
-      "--ignore-scripts",
-      "--no-audit",
-      "--no-fund",
-      "react@18.3.1",
-      "react-dom@18.3.1",
-      "@types/react@18.3.31",
-      "@types/react-dom@18.3.7",
-      ...tarballs
-    ],
-    tempDirectory
-  );
+  assert.match(tokens, /:root/);
+  assert.match(tokens, /\[data-ui-theme="dark"\]/);
+  assert.doesNotMatch(tokens, /\*::before/);
+  assert.match(reset, /prefers-reduced-motion/);
+  assert.doesNotMatch(reset, /:root/);
+  assert.match(components, /ui-status-dot/);
+  assert.match(aggregate, /ui-status-dot/);
+  assert.match(aggregate, /prefers-reduced-motion/);
+  assert.match(aggregate, /--ui-surface-canvas/);
 
-  await writeFile(
-    join(tempDirectory, "smoke.mjs"),
-    [
-      'import * as kit from "uiux-base";',
-      'if (typeof kit.Button !== "object" && typeof kit.Button !== "function") {',
-      '  throw new Error("Button nao foi exportado");',
-      '}',
-      'if (typeof kit.DashboardShell !== "function") {',
-      '  throw new Error("DashboardShell nao foi exportado");',
-      '}',
-      'console.log("package-smoke: ok");'
-    ].join("\n")
-  );
-  run("node", ["smoke.mjs"], tempDirectory);
-
-  await writeFile(
-    join(tempDirectory, "smoke.tsx"),
-    [
-      'import { Button, DashboardShell, type NavigationItem } from "uiux-base";',
-      'const items: NavigationItem[] = [{ id: "home", href: "/", isCurrent: false, label: "Home" }];',
-      'void items;',
-      'export const Smoke = () => (',
-      '  <DashboardShell sidebar={<nav />}><Button>Ok</Button></DashboardShell>',
-      ');'
-    ].join("\n")
-  );
-  await writeFile(
-    join(tempDirectory, "tsconfig.json"),
-    JSON.stringify(
-      {
-        compilerOptions: {
-          jsx: "react-jsx",
-          lib: ["ES2022", "DOM"],
-          module: "ESNext",
-          moduleResolution: "Bundler",
-          noEmit: true,
-          skipLibCheck: false,
-          strict: true,
-          target: "ES2022"
-        },
-        include: ["smoke.tsx"]
-      },
-      null,
-      2
-    )
-  );
-  run(
-    "node",
-    [join(root, "node_modules/typescript/bin/tsc"), "--project", "tsconfig.json"],
-    tempDirectory
-  );
+  await createConsumer(join(tempDirectory, "react-18"), tarballs, "18.3.1", true);
+  await createConsumer(join(tempDirectory, "react-19"), tarballs, "19.3.0");
 
   process.stdout.write(
-    "package-check: tarballs, import ESM e consumidor TypeScript validados\n"
+    "package-check: CSS, tarballs, React 18/19, ESM e TypeScript validados\n"
   );
 } finally {
-  await rm(tempDirectory, { recursive: true, force: true });
+  await rm(tempDirectory, {
+    force: true,
+    maxRetries: 5,
+    recursive: true,
+    retryDelay: 200
+  });
 }
