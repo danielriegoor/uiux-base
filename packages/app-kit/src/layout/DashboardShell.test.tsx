@@ -1,6 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import {
   DashboardContent,
   DashboardShell,
@@ -121,5 +121,58 @@ describe("DashboardShell", () => {
       screen.queryByRole("dialog", { name: "Navegacao principal" })
     ).not.toBeInTheDocument();
     expect(trigger).toHaveFocus();
+  });
+
+  it("deixa o link do roteador agir antes de fechar e ignora links para outra aba", async () => {
+    const user = userEvent.setup();
+    const navigate = vi.fn();
+
+    render(
+      <DashboardShell
+        mobileNavigationDescription="Escolha uma area de trabalho."
+        sidebar={
+          <nav>
+            <a href="/ajuda" target="_blank" rel="noreferrer">Ajuda externa</a>
+            <a href="/relatorios" onClick={(event) => {
+              event.preventDefault();
+              navigate(event.currentTarget.pathname);
+            }}>
+              Relatorios
+            </a>
+          </nav>
+        }
+      >
+        <p>Conteudo principal</p>
+      </DashboardShell>
+    );
+
+    const trigger = screen.getByRole("button", { name: "Abrir navegacao principal" });
+    await user.click(trigger);
+    const dialog = screen.getByRole("dialog", { name: "Navegacao principal" });
+
+    await user.click(within(dialog).getByRole("link", { name: "Ajuda externa" }));
+    expect(dialog).toBeInTheDocument();
+    expect(dialog).toHaveAccessibleDescription("Escolha uma area de trabalho.");
+
+    await user.click(within(dialog).getByRole("link", { name: "Relatorios" }));
+    expect(navigate).toHaveBeenCalledExactlyOnceWith("/relatorios");
+    expect(dialog).not.toBeInTheDocument();
+    expect(trigger).toHaveFocus();
+  });
+
+  it("rotula grupos com links atuais e ignora secoes vazias", () => {
+    render(
+      <Sidebar
+        brand="Workspace"
+        groups={[
+          { label: "Operacao", items: createRouteNav([{ href: "/fila", label: "Fila" }], "/fila") },
+          { label: "Administracao", items: [] }
+        ]}
+      />
+    );
+
+    const section = screen.getByRole("region", { name: "Operacao" });
+    expect(within(section).getByRole("link", { name: "Fila" })).toHaveAttribute("aria-current", "page");
+    expect(screen.queryByRole("region", { name: "Administracao" })).not.toBeInTheDocument();
   });
 });

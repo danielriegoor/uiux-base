@@ -17,6 +17,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
+  ThemeToggle,
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -24,6 +25,21 @@ import {
 } from "../../index";
 
 describe("primitives interativos", () => {
+  it("solicita alternancia de tema por teclado e respeita o tema controlado", async () => {
+    const user = userEvent.setup();
+    const onThemeChange = vi.fn();
+    const { rerender } = render(<ThemeToggle theme="light" onThemeChange={onThemeChange} />);
+
+    await user.tab();
+    expect(screen.getByRole("button", { name: "Ativar tema escuro" })).toHaveFocus();
+    await user.keyboard("{Enter}");
+    expect(onThemeChange).toHaveBeenCalledExactlyOnceWith("dark");
+
+    rerender(<ThemeToggle theme="dark" onThemeChange={onThemeChange} />);
+    await user.click(screen.getByRole("button", { name: "Ativar tema claro" }));
+    expect(onThemeChange).toHaveBeenLastCalledWith("light");
+  });
+
   it("permite usar Button como filho de triggers Radix sem warnings de ref", () => {
     const consoleError = vi.spyOn(console, "error").mockImplementation(() => {});
 

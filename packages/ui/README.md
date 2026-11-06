@@ -15,11 +15,17 @@ import { Button, DashboardShell, KpiCard, StatusBadge } from "uiux-base";
 
 O CSS e precompilado: o consumidor nao precisa apontar o Tailwind para o codigo
 fonte do pacote. Para tema escuro, aplique `data-ui-theme="dark"` ou a classe
-`dark` em um ancestral. Tokens `--ui-*` podem ser sobrescritos pelo produto.
+`dark` em um ancestral. Para incluir componentes em portais no `body`, aplique
+o tema no `html`. Use `ThemeToggle` com `theme` e `onThemeChange` quando o app
+precisar de um controle por teclado ou toque. Tokens `--ui-*` podem ser
+sobrescritos pelo produto.
 
 `styles.css` agrega tokens, reset e componentes. Para integracao avancada,
 importe separadamente `tokens.css`, `components.css` e, se desejado,
 `reset.css`.
+
+Com Tailwind 4, `@import "uiux-base/tokens.css" layer(base);` permite que
+overrides declarados depois na camada `base` definam a paleta do app.
 
 O pacote nao contem regra de negocio, API, auth, billing, graficos ou schemas de
 contrato. React e React DOM sao peer dependencies.

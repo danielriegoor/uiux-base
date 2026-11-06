@@ -15,6 +15,7 @@ import {
   Checkbox,
   DataTable,
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -44,6 +45,7 @@ import {
   TabsList,
   TabsTrigger,
   Textarea,
+  ThemeToggle,
   ToastProvider,
   Tooltip,
   TooltipContent,
@@ -52,9 +54,11 @@ import {
   UiFoundationMark,
   toast,
   type DataTableProps,
-  type StatusBadgeStatus
+  type StatusBadgeStatus,
+  type ThemeToggleProps
 } from "uiux-base";
 import { workspaceConfig } from "@uiux-base/config";
+import { useEffect, useState } from "react";
 import {
   BrowserRouter,
   Link,
@@ -74,13 +78,23 @@ const appMetadata = createAppMetadata({
   packageName: "demo"
 });
 
-const navItems: NavigationItemInput[] = [
-  { href: "/components", label: "Components" },
-  { href: "/components/forms", label: "Forms" },
-  { href: "/components/feedback", label: "Feedback" },
-  { href: "/components/data-table", label: "Data table" },
-  { href: "/patterns/dashboard-shell", label: "Dashboard shell" },
-  { href: "/patterns/states", label: "States" }
+const navigation: { label: string; items: NavigationItemInput[] }[] = [
+  {
+    label: "Biblioteca",
+    items: [
+      { href: "/components", label: "Components" },
+      { href: "/components/forms", label: "Forms" },
+      { href: "/components/feedback", label: "Feedback" },
+      { href: "/components/data-table", label: "Data table" }
+    ]
+  },
+  {
+    label: "Padroes de app",
+    items: [
+      { href: "/patterns/dashboard-shell", label: "Dashboard shell" },
+      { href: "/patterns/states", label: "States" }
+    ]
+  }
 ];
 
 const projectColumns: DataTableProps<DemoProject>["columns"] = [
@@ -146,9 +160,18 @@ function ComponentsPage() {
                         reader e fechamento por teclado.
                       </DialogDescription>
                     </DialogHeader>
+                    <Select>
+                      <SelectTrigger aria-label="Categoria de exemplo">
+                        <SelectValue placeholder="Selecione uma categoria" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="review">Revisao</SelectItem>
+                        <SelectItem value="planning">Planejamento</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <DialogFooter>
-                      <Button variant="outline">Cancelar</Button>
-                      <Button>Confirmar</Button>
+                      <DialogClose asChild><Button variant="outline">Cancelar</Button></DialogClose>
+                      <DialogClose asChild><Button>Confirmar</Button></DialogClose>
                     </DialogFooter>
                   </DialogContent>
                 </Dialog>
@@ -317,7 +340,7 @@ function DashboardShellPage() {
         <section className="rounded-lg border border-[var(--ui-border-default)] bg-[var(--ui-surface-panel)] p-4 shadow-sm">
           <p className="text-sm font-medium text-[var(--ui-text-muted)]">Rotas</p>
           <p className="mt-2 text-2xl font-semibold text-[var(--ui-text-strong)]">
-            {navItems.length}
+            {navigation.reduce((count, group) => count + group.items.length, 0)}
           </p>
           <p className="mt-2 text-sm leading-6 text-[var(--ui-text-body)]">
             Todos os links sao rotas reais do React Router.
@@ -364,15 +387,32 @@ function StatesPage() {
 
 function DemoShell() {
   const location = useLocation();
-  const routeNav = createRouteNav(navItems, location.pathname);
+  const [theme, setTheme] = useState<ThemeToggleProps["theme"]>("light");
+  const groups = navigation.map((group) => ({
+    label: group.label,
+    items: createRouteNav(group.items, location.pathname)
+  }));
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.dataset.uiTheme = theme;
+    return () => { delete root.dataset.uiTheme; };
+  }, [theme]);
 
   return (
     <DashboardShell
+      layout={location.pathname === "/patterns/dashboard-shell" ? "workspace" : "page"}
       mobileBrand="uiux-base demo"
+      mobileNavigationDescription="Escolha uma secao da vitrine ou alterne o tema."
       sidebar={
         <Sidebar
-          brand="uiux-base demo"
-          items={routeNav}
+          brand={
+            <div className="flex items-center justify-between gap-2">
+              <span>uiux-base demo</span>
+              <ThemeToggle onThemeChange={setTheme} theme={theme} />
+            </div>
+          }
+          groups={groups}
           renderLink={(item, { ariaCurrent, children, className }) => (
             <Link aria-current={ariaCurrent} className={className} to={item.href}>
               {children}

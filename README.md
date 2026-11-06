@@ -36,6 +36,19 @@ import "uiux-base/reset.css"; // opcional: reset global e reduced motion
 `styles.css` continua sendo o caminho recomendado no MVP e agrega as tres
 camadas na ordem correta.
 
+Em apps Tailwind 4 que definem a propria paleta na camada `base`, importe
+`tokens.css` com `@import "uiux-base/tokens.css" layer(base);` antes dos seus
+overrides. Importe `components.css` para usar as classes ja compiladas. Aplique
+`data-ui-theme` em `document.documentElement` para que dialogos, menus e outros
+portais montados no `body` recebam o mesmo tema do app. `ThemeToggle` recebe o
+tema atual e chama `onThemeChange` com o proximo valor.
+
+`DashboardShell` usa rolagem da pagina por padrao. Use `layout="workspace"`
+para ocupar a largura e altura da janela, com rolagem no `main`. `Sidebar`
+aceita uma lista simples em `items` ou secoes nomeadas em `groups`. Para
+integrar um roteador, forneca os links pelo `renderLink`; o drawer mobile
+fecha depois que o link trata o clique.
+
 ## Escopo do MVP
 
 - primitives acessiveis baseadas em Radix UI;

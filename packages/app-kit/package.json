@@ -1,6 +1,6 @@
 {
   "name": "uiux-base-app-kit",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Shell, navigation and visual application states for uiux-base.",
   "license": "MIT",
   "type": "module",

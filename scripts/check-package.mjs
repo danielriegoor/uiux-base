@@ -84,6 +84,9 @@ async function createConsumer(directory, tarballs, reactVersion, withTypeScript 
       'if (typeof kit.DashboardShell !== "function") {',
       '  throw new Error("DashboardShell nao foi exportado");',
       '}',
+      'if (typeof kit.ThemeToggle !== "function") {',
+      '  throw new Error("ThemeToggle nao foi exportado");',
+      '}',
       `console.log("package-smoke React ${reactVersion}: ok");`
     ].join("\n")
   );
@@ -94,11 +97,13 @@ async function createConsumer(directory, tarballs, reactVersion, withTypeScript 
   await writeFile(
     join(directory, "smoke.tsx"),
     [
-      'import { Button, DashboardShell, type NavigationItem } from "uiux-base";',
+      'import { Button, DashboardShell, Sidebar, ThemeToggle, type NavigationItem, type SidebarGroup } from "uiux-base";',
       'const items: NavigationItem[] = [{ id: "home", href: "/", isCurrent: false, label: "Home" }];',
-      "void items;",
+      'const groups: SidebarGroup[] = [{ label: "Inicio", items }];',
       "export const Smoke = () => (",
-      "  <DashboardShell sidebar={<nav />}><Button>Ok</Button></DashboardShell>",
+      '  <DashboardShell layout="workspace" sidebar={<Sidebar brand="App" groups={groups} />}>',
+      '    <Button>Ok</Button><ThemeToggle theme="light" onThemeChange={() => {}} />',
+      '  </DashboardShell>',
       ");"
     ].join("\n")
   );
@@ -195,6 +200,7 @@ try {
   assert.match(reset, /prefers-reduced-motion/);
   assert.doesNotMatch(reset, /:root/);
   assert.match(components, /ui-status-dot/);
+  assert.match(components, /@keyframes ui-dialog-enter/);
   assert.match(aggregate, /ui-status-dot/);
   assert.match(aggregate, /prefers-reduced-motion/);
   assert.match(aggregate, /--ui-surface-canvas/);

@@ -1,5 +1,16 @@
 # uiux-base
 
+## 0.2.0
+
+### Minor Changes
+
+- Adiciona navegação agrupada, sidebar com rolagem própria e shell de janela inteira. Corrige a navegação por roteador no drawer mobile e oferece descrição acessível. Inclui `ThemeToggle` controlado e diálogos com animação centralizada, movimento reduzido e rolagem para conteúdo longo.
+
+### Patch Changes
+
+- Updated dependencies
+  - uiux-base-app-kit@0.2.0
+
 ## 0.1.1
 
 ### Patch Changes
