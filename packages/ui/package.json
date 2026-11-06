@@ -1,6 +1,6 @@
 {
   "name": "uiux-base",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Neutral and accessible React UI foundation for application interfaces.",
   "license": "MIT",
   "type": "module",
@@ -60,6 +60,6 @@
     "lucide-react": "^1.21.0",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.6.0",
-    "uiux-base-app-kit": "0.1.1"
+    "uiux-base-app-kit": "0.2.0"
   }
 }

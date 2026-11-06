@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { App } from "./App";
@@ -53,5 +53,23 @@ describe("demo app", () => {
 
     expect(screen.getByRole("heading", { name: "Components" })).toBeInTheDocument();
     expect(window.location.pathname).toBe("/components");
+  });
+
+  it("navega pelo drawer usando o roteador e troca o tema de todo o app", async () => {
+    window.history.pushState({}, "", "/components");
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole("button", { name: "Abrir navegacao principal" }));
+    const drawer = screen.getByRole("dialog", { name: "Navegacao principal" });
+    await user.click(within(drawer).getByRole("button", { name: "Ativar tema escuro" }));
+    expect(document.documentElement).toHaveAttribute("data-ui-theme", "dark");
+
+    const patterns = within(drawer).getByRole("region", { name: "Padroes de app" });
+    await user.click(within(patterns).getByRole("link", { name: "Dashboard shell" }));
+
+    expect(screen.getByRole("heading", { name: "Dashboard shell" })).toBeInTheDocument();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    expect(window.location.pathname).toBe("/patterns/dashboard-shell");
   });
 });

@@ -5,6 +5,10 @@ html {
   color-scheme: light;
 }
 
+html[data-ui-theme="dark"] {
+  color-scheme: dark;
+}
+
 body {
   margin: 0;
   min-width: 320px;

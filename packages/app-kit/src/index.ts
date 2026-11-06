@@ -24,7 +24,12 @@ export {
   DashboardShell,
   type DashboardShellProps
 } from "./layout/DashboardShell";
-export { Sidebar, type SidebarProps } from "./layout/Sidebar";
+export {
+  Sidebar,
+  type SidebarGroup,
+  type SidebarProps,
+  type SidebarRenderLinkProps
+} from "./layout/Sidebar";
 export {
   StatusBar,
   type StatusBarItem,

@@ -13,3 +13,43 @@
 .ui-status-dot[data-ui-status-tone="danger"] {
   background-color: var(--ui-danger-solid);
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .ui-dialog-overlay[data-state="open"] {
+    animation: ui-dialog-fade 160ms ease-out both;
+  }
+
+  .ui-dialog-overlay[data-state="closed"] {
+    animation: ui-dialog-fade-out 120ms ease-in both;
+  }
+
+  .ui-dialog-content[data-state="open"] {
+    animation: ui-dialog-enter 160ms ease-out both;
+  }
+
+  .ui-dialog-content[data-state="closed"] {
+    animation: ui-dialog-fade-out 120ms ease-in both;
+  }
+}
+
+@keyframes ui-dialog-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ui-dialog-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes ui-dialog-enter {
+  from {
+    opacity: 0;
+    scale: 0.97;
+  }
+
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}

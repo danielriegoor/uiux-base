@@ -86,6 +86,7 @@ export {
   TabsTrigger
 } from "./components/ui/tabs";
 export { Textarea, type TextareaProps } from "./components/ui/textarea";
+export { ThemeToggle, type ThemeToggleProps } from "./components/ui/theme-toggle";
 export {
   Tooltip,
   TooltipContent,

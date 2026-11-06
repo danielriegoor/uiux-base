@@ -37,16 +37,24 @@
 | `npm run check:types` | tipos ESM aprovados pelo Are the Types Wrong |
 | `npm run check` | gate completo local e de CI |
 
-## Registro da rodada atual
+## Registro da versão 0.2.0
 
-- Data: 2026-09-23.
-- Starter e demo: 375, 768, 1024 e 1440px sem overflow horizontal.
-- Mobile: drawer abre com foco no fechamento e Escape devolve foco ao gatilho.
-- Breakpoint: drawer em 375/768; sidebar desktop em 1024/1440.
-- Console do browser: zero warnings ou erros no smoke final.
-- Suite local: 17 arquivos e 41 testes verdes, incluindo somente dois smokes
-  axe-core representativos e sem E2E.
-- Empacotamento: dois tarballs instalados em consumidores React 18 e React 19.
+- Em 2026-11-06, starter e demo compilados passaram no Chrome a 375, 768, 1024
+  e 1440 px sem overflow horizontal nem erros no console.
+- Drawer mobile com nome, descrição e foco restaurado por Escape. Link de
+  React Router troca de rota sem recarregar. Redimensionar para desktop
+  fecha o drawer e move o foco para o `main`.
+- A navegação rola de forma independente no desktop. O shell em modo
+  `workspace` mantém a rolagem no `main`.
+- Modal centralizado desde o primeiro quadro, com rolagem para conteúdo
+  longo e sem animação em movimento reduzido. `Select` aninhado fecha e
+  permite reabrir o `Dialog`. Portais seguem o tema aplicado ao `html`.
+- A suíte local passou com 45 testes em 17 arquivos, incluindo dois smokes
+  axe-core. Os tarballs foram validados em React 18 e React 19.
+- Tailwind CSS e o plugin Vite usam `4.3.5`. A auditoria sem dependências de
+  desenvolvimento encontrou zero alertas. A auditoria completa não encontrou
+  alertas altos ou críticos após as atualizações do lockfile. Os alertas
+  moderados restantes partem do `minimatch` usado pelas ferramentas de lint.
 
 Validacao local, CI do PR, publicacao npm e instalacao pelo registry continuam
 sendo provas distintas.
